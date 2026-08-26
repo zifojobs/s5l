@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S5L Productions — In front of the people who award the work</title>
+<meta name="description" content="S5L Productions puts architecture, engineering and construction firms in front of the people who award work, and the people they need to hire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;800;900&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#050505;
+  --ink:#0A0B0E;
+  --ink-2:#0E1116;
+  --glass:rgba(255,255,255,.045);
+  --glass-2:rgba(255,255,255,.028);
+  --hair:rgba(255,255,255,.10);
+  --hair-soft:rgba(255,255,255,.06);
+  --paper:#F2F4F8;
+  --dim:#98A2B3;
+  --blue:#2E5296;
+  --blue-lit:#6E9BEE;
+  --blue-glow:rgba(46,82,150,.42);
+
+  --display:"Geist","Archivo",system-ui,sans-serif;
+  --body:"Poppins",system-ui,-apple-system,sans-serif;
+
+  --pad:clamp(1.15rem,4.5vw,4rem);
+  --ease:cubic-bezier(.32,.72,0,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--void);color:var(--paper);
+  font-family:var(--body);font-weight:300;
+  font-size:clamp(.98rem,.5vw + .88rem,1.08rem);line-height:1.7;
+  overflow-x:hidden;
+}
+::selection{background:var(--blue-lit);color:#04070D}
+:focus-visible{outline:1.5px solid var(--blue-lit);outline-offset:4px;border-radius:4px}
+html{scrollbar-color:#20242C var(--void)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--void)}
+::-webkit-scrollbar-thumb{background:#20242C;border:3px solid var(--void);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:#2E3540}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.045em;line-height:.92;font-weight:800;text-wrap:balance}
+p{margin:0 0 1.1em;max-width:64ch}
+.wrap{width:min(1320px,100%);margin-inline:auto;padding-inline:var(--pad)}
+section{position:relative}
+
+/* film grain, fixed and inert — never attached to a scrolling box */
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* micro type used at the edges, the way a cut sheet is labelled */
+.micro{font-family:var(--display);font-weight:500;font-size:.62rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--dim)}
+
+/* ---------- floating island nav ---------- */
+.nav-shell{position:fixed;inset:1.35rem 0 auto;z-index:70;display:flex;justify-content:center;
+  padding-inline:var(--pad);pointer-events:none}
+.island{pointer-events:auto;display:flex;align-items:center;gap:clamp(.9rem,2vw,2.1rem);
+  width:max-content;max-width:100%;
+  padding:.5rem .5rem .5rem 1.1rem;border-radius:999px;
+  background:rgba(10,11,14,.62);backdrop-filter:blur(22px) saturate(1.4);
+  -webkit-backdrop-filter:blur(22px) saturate(1.4);
+  border:1px solid var(--hair);
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.09);
+  transition:transform .7s var(--ease),background-color .7s var(--ease)}
+.island .mark{display:flex;align-items:center;flex:none}
+/* the supplied PNG is a 750x750 square whose ink is a 705x236 band; cropped in CSS, file untouched */
+.island .mark img{width:clamp(122px,10.5vw,148px);height:auto;
+  aspect-ratio:705/236;object-fit:cover;object-position:50% 47.6%}
+.links{display:flex;align-items:center;gap:clamp(.85rem,1.7vw,1.65rem)}
+.links a{font-family:var(--display);font-weight:500;font-size:.83rem;letter-spacing:-.005em;
+  color:var(--dim);transition:color .5s var(--ease)}
+.links a:hover{color:var(--paper)}
+.cta-pill{display:inline-flex;align-items:center;gap:.55rem;flex:none;
+  font-family:var(--display);font-weight:600;font-size:.83rem;letter-spacing:-.01em;
+  color:#04070D;background:var(--paper);border-radius:999px;padding:.52rem .52rem .52rem 1.05rem;
+  transition:transform .6s var(--ease),background-color .6s var(--ease)}
+.cta-pill .knob{width:26px;height:26px;border-radius:999px;background:rgba(4,7,13,.09);
+  display:grid;place-items:center;flex:none;
+  transition:transform .6s var(--ease),background-color .6s var(--ease)}
+.cta-pill .knob svg{width:12px;height:12px}
+.cta-pill:hover{background:#fff}
+.cta-pill:hover .knob{transform:translate(3px,-1px) scale(1.06);background:rgba(4,7,13,.16)}
+.cta-pill:active{transform:scale(.975)}
+
+.burger{display:none;flex:none;width:40px;height:40px;border-radius:999px;border:1px solid var(--hair);
+  background:var(--glass);position:relative;cursor:pointer;padding:0;
+  transition:background-color .5s var(--ease)}
+.burger:hover{background:rgba(255,255,255,.09)}
+.burger i{position:absolute;left:11px;right:11px;height:1.4px;background:var(--paper);border-radius:2px;
+  transition:transform .6s var(--ease),opacity .3s var(--ease)}
+.burger i:nth-child(1){top:15px}
+.burger i:nth-child(2){top:23px}
+body[data-menu="open"] .burger i:nth-child(1){transform:translateY(4px) rotate(45deg)}
+body[data-menu="open"] .burger i:nth-child(2){transform:translateY(-4px) rotate(-45deg)}
+
+/* full-screen glass overlay */
+.sheet{position:fixed;inset:0;z-index:65;display:grid;align-content:center;
+  padding:6rem var(--pad) 3rem;
+  background:rgba(5,5,5,.86);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s}
+body[data-menu="open"] .sheet{opacity:1;visibility:visible}
+.sheet a{font-family:var(--display);font-weight:800;letter-spacing:-.045em;
+  font-size:clamp(2.1rem,10vw,3.4rem);line-height:1.1;color:var(--paper);
+  padding-block:.5rem;border-bottom:1px solid var(--hair-soft);
+  opacity:0;transform:translateY(38px);
+  transition:opacity .7s var(--ease-out),transform .7s var(--ease-out),color .4s}
+.sheet a:hover{color:var(--blue-lit)}
+body[data-menu="open"] .sheet a{opacity:1;transform:none}
+body[data-menu="open"] .sheet a:nth-child(1){transition-delay:.08s}
+body[data-menu="open"] .sheet a:nth-child(2){transition-delay:.14s}
+body[data-menu="open"] .sheet a:nth-child(3){transition-delay:.20s}
+body[data-menu="open"] .sheet a:nth-child(4){transition-delay:.26s}
+body[data-menu="open"] .sheet a:nth-child(5){transition-delay:.32s}
+body[data-menu="open"] .sheet a:nth-child(6){transition-delay:.38s}
+
+@media(max-width:900px){
+  .links,.island .cta-pill{display:none}
+  .burger{display:block}
+  .island{width:100%;justify-content:space-between;padding:.5rem .5rem .5rem 1rem}
+}
+@media(min-width:901px){.sheet{display:none}}
+
+/* ---------- hero ---------- */
+.hero{min-height:100dvh;display:grid;grid-template-rows:1fr auto;overflow:hidden;
+  padding-block:clamp(8rem,18vh,12rem) clamp(1.4rem,3vh,2.2rem)}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.72) contrast(1.06)}
+.hero-media::after{content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(120% 82% at 78% 12%,var(--blue-glow),transparent 58%),
+    linear-gradient(184deg,rgba(5,5,5,.72) 0%,rgba(5,5,5,.34) 38%,rgba(5,5,5,.93) 84%,var(--void) 100%)}
+/* hairline plumb lines, the way a cut sheet is ruled */
+.rules{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:repeating-linear-gradient(90deg,transparent 0 calc(25% - 1px),var(--hair-soft) calc(25% - 1px),var(--hair-soft) 25%);
+  mask-image:linear-gradient(180deg,transparent,#000 18%,#000 72%,transparent);
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 18%,#000 72%,transparent)}
+.hero .wrap{position:relative;z-index:3;align-self:end}
+
+.stack{display:grid;gap:clamp(.1rem,.4vw,.35rem)}
+.stack span{display:block;font-family:var(--display);font-weight:900;
+  font-size:clamp(2.3rem,8.4vw,7.6rem);line-height:.88;letter-spacing:-.05em;
+  text-transform:uppercase;white-space:nowrap}
+.stack span:nth-child(2){margin-left:clamp(0px,3vw,3.5rem)}
+.stack span:nth-child(3){margin-left:clamp(0px,6vw,7rem);color:var(--blue-lit)}
+.stack span i{font-style:normal;opacity:0;transform:translateY(64px) rotate(1.6deg);display:inline-block;
+  transition:opacity 1s var(--ease-out),transform 1.15s var(--ease-out)}
+.hero.lit .stack span i{opacity:1;transform:none}
+.hero.lit .stack span:nth-child(2) i{transition-delay:.11s}
+.hero.lit .stack span:nth-child(3) i{transition-delay:.22s}
+
+.hero-foot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem 2rem;align-items:end;
+  margin-top:clamp(2.2rem,5vw,3.6rem)}
+.hero-foot p{margin:0;max-width:40ch;color:var(--paper);font-size:clamp(.95rem,.55vw + .82rem,1.1rem)}
+.hero-foot p b{font-weight:500}
+.hero-foot .who{margin-top:.85rem;max-width:46ch;color:var(--dim);font-size:.82rem;line-height:1.55}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.7rem}
+@media(max-width:820px){.hero-foot{grid-template-columns:1fr}}
+
+.strip{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;
+  gap:1rem;border-top:1px solid var(--hair-soft);margin-top:clamp(1.6rem,4vw,2.6rem);padding-top:.85rem}
+.tc{font-variant-numeric:tabular-nums}
+@media(max-width:560px){.strip .micro:nth-child(2){display:none}.strip{justify-content:space-between}}
+
+/* ---------- client wall ---------- */
+.wall{background:var(--ink);border-block:1px solid var(--hair-soft);padding-block:clamp(2.4rem,4.6vw,3.6rem);overflow:hidden}
+.wall .wrap{display:grid;gap:clamp(1.5rem,3vw,2.4rem)}
+.belt{overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+/* the spacing lives on the item, not the track: translateX(-50%) is only seamless
+   when the two halves measure exactly the same, spacing included. */
+.belt-track{display:flex;width:max-content;animation:belt 44s linear infinite}
+.belt:hover .belt-track{animation-play-state:paused}
+@keyframes belt{to{transform:translateX(-50%)}}
+.lg{--h:clamp(46px,5.2vw,62px);
+  flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  height:var(--h);width:calc(var(--h) * var(--wr,1.2));
+  margin-right:clamp(2rem,4.6vw,4.4rem);opacity:.72;transition:opacity .6s var(--ease)}
+.lg:hover{opacity:1}
+/* every mark is already white on transparent, so nothing is recoloured here.
+   --z zooms each one to a common cap height, since the ink fills between
+   10% and 98% of its own square. The logo files are never modified. */
+.lg img{width:var(--h);height:var(--h);object-fit:contain;flex:none;transform:scale(var(--z,1))}
+.lg.wide img{width:calc(var(--h) * 2.2);height:var(--h)}
+/* Platinum is the one mark that is not a flat white lockup: it is chrome, with a
+   black outline and black text inside a white pill. Forcing it white would destroy
+   it, so the plate changes instead of the logo. The file is never touched. */
+.lg.plated{background:rgba(244,246,250,.94);border-radius:.55rem;padding-inline:.7rem;opacity:.9}
+.lg.plated:hover{background:#fff;opacity:1}
+
+/* ---------- editorial split ---------- */
+.split{padding-block:clamp(5rem,13vh,10rem)}
+.split .wrap{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:clamp(2.4rem,6vw,5.5rem);align-items:start}
+@media(max-width:960px){.split .wrap{grid-template-columns:1fr}}
+h2{font-size:clamp(2.1rem,5.4vw,4.4rem)}
+.split .col{position:sticky;top:7.5rem}
+.split h2{max-width:11ch}
+@media(max-width:960px){.split .col{position:static}}
+.split .lede{color:var(--dim);margin-top:1.4rem;max-width:32ch}
+.faults{list-style:none;margin:0;padding:0;display:grid}
+.faults li{padding-block:clamp(1.15rem,2.2vw,1.75rem);border-top:1px solid var(--hair-soft);
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 1.4rem;align-items:baseline}
+.faults li:last-child{border-bottom:1px solid var(--hair-soft)}
+.faults .n{font-family:var(--display);font-weight:500;font-size:.68rem;letter-spacing:.16em;
+  color:var(--blue-lit);font-variant-numeric:tabular-nums;padding-top:.42rem}
+.faults h3{font-family:var(--display);font-size:clamp(1.06rem,1.35vw,1.28rem);font-weight:600;letter-spacing:-.028em;line-height:1.25}
+.faults p{grid-column:2;margin:.45rem 0 0;color:var(--dim);font-size:.92rem;max-width:44ch}
+.turn{grid-column:1/-1;margin-top:clamp(2.2rem,4.5vw,3.4rem);
+  padding:clamp(1.4rem,2.6vw,2.1rem) clamp(1.5rem,3vw,2.4rem);
+  border-radius:1.6rem;border:1px solid var(--hair);
+  background:linear-gradient(160deg,rgba(46,82,150,.20),rgba(255,255,255,.02));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10)}
+.turn p{margin:0;font-family:var(--display);font-weight:600;letter-spacing:-.03em;line-height:1.28;
+  font-size:clamp(1.15rem,1.9vw,1.68rem);max-width:30ch;color:var(--paper)}
+.turn p b{font-weight:800;color:var(--blue-lit)}
+
+/* ---------- three doors: double-bezel cards ---------- */
+.doors{padding-block:clamp(4.5rem,11vh,8.5rem);background:var(--ink);border-top:1px solid var(--hair-soft)}
+.doors-head{display:grid;gap:1.1rem;margin-bottom:clamp(2.4rem,5.5vw,4rem);max-width:52ch}
+.doors-head h2{max-width:15ch}
+.doors-head p{color:var(--dim);margin:0}
+.deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(.9rem,1.7vw,1.5rem);align-items:start}
+@media(max-width:960px){.deck{grid-template-columns:1fr}}
+/* outer shell */
+.door{border-radius:1.9rem;padding:.4rem;background:var(--glass-2);border:1px solid var(--hair-soft);
+  opacity:0;transform:translateY(52px);filter:blur(8px);
+  transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),filter .9s var(--ease-out)}
+.deck.lit .door{opacity:1;transform:none;filter:none}
+.deck.lit .door:nth-child(2){transition-delay:.10s}
+.deck.lit .door:nth-child(3){transition-delay:.20s}
+/* inner core, concentric radius */
+.door-core{border-radius:calc(1.9rem - .4rem);background:linear-gradient(168deg,rgba(255,255,255,.055),rgba(255,255,255,.014));
+  border:1px solid var(--hair-soft);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13);
+  padding:clamp(1.25rem,2.1vw,1.75rem);
+  transition:background-color .7s var(--ease),border-color .7s var(--ease)}
+.door[aria-expanded="true"] .door-core{border-color:rgba(110,155,238,.42)}
+.door:hover .door-core{border-color:rgba(255,255,255,.18)}
+.door-btn{display:flex;align-items:flex-start;gap:1rem;width:100%;background:none;border:0;padding:0;
+  cursor:pointer;text-align:left;color:var(--paper);font-family:var(--display);font-weight:700;
+  letter-spacing:-.032em;line-height:1.2;font-size:clamp(1.1rem,1.45vw,1.34rem)}
+.door-btn span:first-child{flex:1}
+.knob-o{width:30px;height:30px;border-radius:999px;flex:none;display:grid;place-items:center;
+  background:rgba(255,255,255,.06);border:1px solid var(--hair-soft);
+  transition:transform .6s var(--ease),background-color .6s var(--ease)}
+.door:hover .knob-o{background:rgba(255,255,255,.12);transform:scale(1.06)}
+.knob-o i{position:relative;width:11px;height:11px;display:block}
+.knob-o i::before,.knob-o i::after{content:"";position:absolute;background:var(--blue-lit);border-radius:2px;
+  transition:transform .55s var(--ease),opacity .35s var(--ease)}
+.knob-o i::before{inset:45% 0 auto;height:1.4px}
+.knob-o i::after{inset:0 45% auto;width:1.4px;height:100%}
+.door[aria-expanded="true"] .knob-o i::after{transform:rotate(90deg);opacity:0}
+.door-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .65s var(--ease)}
+.door[aria-expanded="true"] .door-panel{grid-template-rows:1fr}
+.door-panel ul{overflow:hidden;min-height:0;margin:0;padding:0;list-style:none}
+.door-panel li{font-size:.9rem;color:var(--dim);padding-block:.46rem;border-top:1px solid var(--hair-soft);
+  opacity:0;transform:translateY(-8px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.door-panel li:first-child{margin-top:1.15rem}
+.door[aria-expanded="true"] li{opacity:1;transform:none}
+.door[aria-expanded="true"] li:nth-child(1){transition-delay:.09s}
+.door[aria-expanded="true"] li:nth-child(2){transition-delay:.15s}
+.door[aria-expanded="true"] li:nth-child(3){transition-delay:.21s}
+.door[aria-expanded="true"] li:nth-child(4){transition-delay:.27s}
+.door[aria-expanded="true"] li:nth-child(5){transition-delay:.33s}
+.door[aria-expanded="true"] li:nth-child(6){transition-delay:.39s}
+
+/* ---------- proof ---------- */
+.proof{padding-block:clamp(4.5rem,11vh,8.5rem);overflow:hidden}
+.proof::before{content:"";position:absolute;inset:-20% -10% auto;height:130%;z-index:0;pointer-events:none;
+  background:radial-gradient(58% 52% at 24% 30%,var(--blue-glow),transparent 68%)}
+.proof .wrap{position:relative;z-index:1}
+.slab{border-radius:2.2rem;padding:.45rem;background:var(--glass-2);border:1px solid var(--hair-soft)}
+.slab-core{border-radius:calc(2.2rem - .45rem);border:1px solid var(--hair-soft);
+  background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.012));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+  padding:clamp(1.6rem,3.4vw,3rem);
+  display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(1.8rem,4vw,3.4rem);align-items:start}
+@media(max-width:960px){.slab-core{grid-template-columns:1fr}}
+.proof h2{max-width:16ch}
+.proof p{color:var(--dim);margin-top:1.3rem}
+.proof .named{color:var(--paper);font-weight:400}
+.honest{margin-top:1.7rem;padding-top:1.4rem;border-top:1px solid var(--hair-soft)}
+.honest p{margin:0;color:var(--paper);font-family:var(--display);font-weight:600;letter-spacing:-.03em;
+  font-size:clamp(1.02rem,1.35vw,1.34rem);line-height:1.35;max-width:31ch}
+.cycle{margin-top:1.2rem;font-size:.84rem;color:var(--dim);max-width:36ch}
+.plate{border-radius:1.3rem;overflow:hidden;border:1px solid var(--hair-soft);background:var(--ink-2)}
+.plate img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:saturate(.82)}
+.plate figcaption{padding:.95rem 1.1rem;font-size:.83rem;color:var(--dim);border-top:1px solid var(--hair-soft)}
+
+/* ---------- asymmetrical bento ---------- */
+.reel-wrap{padding-block:clamp(4.5rem,11vh,8.5rem);background:var(--ink);border-block:1px solid var(--hair-soft)}
+.reel-head{max-width:44ch;margin-bottom:clamp(2.4rem,5.5vw,3.8rem)}
+.reel-head p{color:var(--dim);margin-top:1.3rem}
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(.8rem,1.5vw,1.3rem)}
+.tile{position:relative;overflow:hidden;border-radius:1.5rem;border:1px solid var(--hair-soft);
+  background:var(--ink-2);height:clamp(250px,23vw,340px);
+  opacity:0;transform:translateY(48px);filter:blur(7px);
+  transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),filter .9s var(--ease-out)}
+.bento.lit .tile{opacity:1;transform:none;filter:none}
+.bento.lit .tile:nth-child(2){transition-delay:.08s}
+.bento.lit .tile:nth-child(3){transition-delay:.16s}
+.bento.lit .tile:nth-child(4){transition-delay:.24s}
+.tile:nth-child(1){grid-column:span 4}
+.tile:nth-child(2){grid-column:span 2}
+.tile:nth-child(3){grid-column:span 2}
+.tile:nth-child(4){grid-column:span 4}
+@media(max-width:820px){
+  .bento{grid-template-columns:1fr}
+  .tile{grid-column:auto!important;height:clamp(228px,56vw,310px)}
+}
+.tile img{width:100%;height:100%;object-fit:cover;filter:saturate(.86);
+  transition:transform 1.3s var(--ease-out),filter .8s var(--ease)}
+.tile:hover img{transform:scale(1.045);filter:saturate(1)}
+.tile figcaption{position:absolute;inset:auto 0 0;padding:clamp(1rem,1.9vw,1.5rem);
+  background:linear-gradient(0deg,rgba(5,5,5,.97) 0%,rgba(5,5,5,.86) 44%,rgba(5,5,5,.5) 74%,transparent)}
+.tile h3{font-family:var(--display);font-weight:700;font-size:clamp(1.04rem,1.35vw,1.24rem);
+  letter-spacing:-.03em;color:#fff}
+.tile p{margin:.4rem 0 0;font-size:.87rem;color:#D8DFEA;max-width:38ch;
+  text-shadow:0 1px 12px rgba(5,5,5,.95)}
+.also{margin-top:clamp(1.7rem,3vw,2.4rem);font-size:.86rem;color:var(--dim)}
+
+/* ---------- close ---------- */
+.close{padding-block:clamp(5rem,13vh,9rem);overflow:hidden}
+.close::before{content:"";position:absolute;inset:auto -8% -40% 20%;height:120%;z-index:0;pointer-events:none;
+  background:radial-gradient(48% 46% at 50% 60%,var(--blue-glow),transparent 70%)}
+.close .wrap{position:relative;z-index:1;display:grid;gap:clamp(1.9rem,4vw,3rem);
+  grid-template-columns:minmax(0,1fr) auto;align-items:end}
+@media(max-width:860px){.close .wrap{grid-template-columns:1fr;align-items:start}}
+.close h2{max-width:14ch}
+.close p{color:var(--dim);margin-top:1.3rem;max-width:44ch}
+.big-pill{display:inline-flex;align-items:center;gap:.8rem;flex:none;
+  font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:-.015em;
+  color:#04070D;background:var(--paper);border-radius:999px;padding:.62rem .62rem .62rem 1.5rem;
+  transition:transform .6s var(--ease),background-color .6s var(--ease)}
+.big-pill .knob{width:38px;height:38px;border-radius:999px;background:rgba(4,7,13,.09);
+  display:grid;place-items:center;flex:none;
+  transition:transform .6s var(--ease),background-color .6s var(--ease)}
+.big-pill .knob svg{width:15px;height:15px}
+.big-pill:hover{background:#fff}
+.big-pill:hover .knob{transform:translate(3px,-1px) scale(1.07);background:rgba(4,7,13,.16)}
+.big-pill:active{transform:scale(.978)}
+
+/* ---------- footer ---------- */
+footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--dim);
+  border-top:1px solid var(--hair-soft)}
+.foot{display:grid;gap:2.2rem clamp(2rem,5vw,4rem);
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));
+  padding-bottom:2.2rem;border-bottom:1px solid var(--hair-soft)}
+.foot h3{font-family:var(--display);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;
+  color:#808A99;font-weight:500;margin:0 0 .9rem}
+.foot a{display:block;padding-block:.24rem;transition:color .45s var(--ease)}
+.foot a:hover{color:var(--paper)}
+.foot address{font-style:normal}
+.foot-mark img{width:clamp(132px,13vw,158px);height:auto;aspect-ratio:705/236;
+  object-fit:cover;object-position:50% 47.6%;margin-bottom:1rem}
+.legal{padding-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+  font-size:.76rem;color:#7A8494}
+
+/* ---------- scroll reveal ---------- */
+.rise{opacity:0;transform:translateY(46px);filter:blur(7px);
+  transition:opacity .95s var(--ease-out),transform .95s var(--ease-out),filter .95s var(--ease-out)}
+.rise.lit{opacity:1;transform:none;filter:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .rise,.door,.tile,.stack span i{opacity:1!important;transform:none!important;filter:none!important}
+}
+</style>
+</head>
+<body data-menu="closed">
+<div class="grain" aria-hidden="true"></div>
+
+<div class="nav-shell">
+  <nav class="island" aria-label="Main">
+    <a class="mark" href="#top" aria-label="S5L Productions, home"><img src="assets/s5l-logo.png" alt="S5L Productions"></a>
+    <div class="links">
+      <a href="#top">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Our Services</a>
+      <a href="#video">Video</a>
+      <a href="#blog">Blog</a>
+    </div>
+    <a class="cta-pill" href="#contact">Contact Us
+      <span class="knob" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12L12 4M6 4h6v6"/></svg></span>
+    </a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu">
+      <i></i><i></i>
+    </button>
+  </nav>
+</div>
+
+<div class="sheet" id="sheet">
+  <a href="#top">Home</a>
+  <a href="#about">About</a>
+  <a href="#services">Our Services</a>
+  <a href="#video">Video</a>
+  <a href="#blog">Blog</a>
+  <a href="#contact">Contact Us</a>
+</div>
+
+<main id="top">
+
+<section class="hero" id="hero">
+  <div class="hero-media">
+    <video autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.jpg" id="heroVideo" aria-hidden="true">
+      <source src="assets/hero-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="rules" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <h1 class="stack">
+      <span><i>In front of</i></span>
+      <span><i>the people who</i></span>
+      <span><i>award the work</i></span>
+    </h1>
+
+    <div class="hero-foot">
+      <div>
+        <p>And in front of the people you need to hire. <b>Video is how we do it. It is not what we sell.</b></p>
+        <p class="who">For general contractors, subcontractors and trades, developers, consulting engineers and owner&rsquo;s reps across Ontario.</p>
+      </div>
+      <div class="hero-cta">
+        <a class="big-pill" href="#contact">Book a call
+          <span class="knob" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="strip">
+      <span class="micro">Ontario &middot; AEC</span>
+      <span class="micro">Lead engine: LinkedIn</span>
+      <span class="micro tc" id="tc">00:00:00</span>
+    </div>
+  </div>
+</section>
+
+<section class="wall" aria-label="Clients we have worked with">
+  <div class="wrap">
+    <span class="micro">Who we&rsquo;ve worked with</span>
+    <div class="belt">
+      <div class="belt-track" id="belt">
+        <span class="lg" style="--z:1.89;--wr:1.15"><img src="assets/Kenaidan.png" alt="Kenaidan"></span>
+        <span class="lg wide plated" style="--z:1.30;--wr:2.9"><img src="assets/platinum-logo.webp" alt="Platinum Construction Corporation"></span>
+        <span class="lg" style="--z:2.56;--wr:2.70"><img src="assets/Seal_Canada_Logoq-1.png" alt="Seal Canada"></span>
+        <span class="lg" style="--z:2.57;--wr:1.15"><img src="assets/Conform-Glass.png" alt="Conform Glass"></span>
+        <span class="lg" style="--z:1.92;--wr:1.15"><img src="assets/SC.png" alt="S&amp;C Electric Canada"></span>
+        <span class="lg" style="--z:3.91;--wr:2.10"><img src="assets/MSHomes.png" alt="MSHomes"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="split" id="about">
+  <div class="wrap">
+    <div class="col">
+      <h2 class="rise">What AEC gets wrong on LinkedIn.</h2>
+      <p class="lede rise">Not a lack of effort. Six habits, and every one of them is fixable.</p>
+    </div>
+    <div>
+      <ul class="faults">
+        <li class="rise"><span class="n">01</span><h3>They treat LinkedIn like Facebook</h3><p>Broadcast to a company page, then hope.</p></li>
+        <li class="rise"><span class="n">02</span><h3>Post and ghost</h3><p>No engagement before or after publishing, when the algorithm requires both.</p></li>
+        <li class="rise"><span class="n">03</span><h3>The company page as the main lever</h3><p>The personal page is what actually carries reach and trust.</p></li>
+        <li class="rise"><span class="n">04</span><h3>Before-and-after as the entire strategy</h3><p>It proves you finished a building. Every bidder can prove that.</p></li>
+        <li class="rise"><span class="n">05</span><h3>No funnel</h3><p>Nothing at the top, nothing in the middle, everything asking for the meeting.</p></li>
+        <li class="rise"><span class="n">06</span><h3>A quiet belief that it cannot generate leads</h3><p>Which is exactly why the field is still open.</p></li>
+      </ul>
+      <div class="turn rise">
+        <p>You can&rsquo;t influence an evaluator once the window is open. <b>So the work has to be finished before it opens.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="doors" id="services">
+  <div class="wrap">
+    <div class="doors-head">
+      <h2 class="rise">One production engine. Three doors.</h2>
+      <p class="rise">Same crew, same shoot days. What changes is whose desk it lands on.</p>
+    </div>
+
+    <div class="deck" id="deck">
+      <article class="door" aria-expanded="false">
+        <div class="door-core">
+          <h3 style="margin:0"><button class="door-btn" aria-controls="d1"><span>Branding &amp; Marketing</span><span class="knob-o" aria-hidden="true"><i></i></span></button></h3>
+          <div class="door-panel"><ul id="d1">
+            <li>Graphics that win on LinkedIn</li>
+            <li>Stop the before-and-after</li>
+            <li>Documentary series</li>
+            <li>Customer testimonials</li>
+            <li>Why choose your company</li>
+            <li>Winning before the RFQ</li>
+          </ul></div>
+        </div>
+      </article>
+
+      <article class="door" aria-expanded="false">
+        <div class="door-core">
+          <h3 style="margin:0"><button class="door-btn" aria-controls="d2"><span>Lead Generation</span><span class="knob-o" aria-hidden="true"><i></i></span></button></h3>
+          <div class="door-panel"><ul id="d2">
+            <li>Decision makers are on LinkedIn. Be in front of them.</li>
+            <li>Reach your core clients directly</li>
+            <li>Stop the post and ghost</li>
+            <li>DMs and engagement that open doors</li>
+            <li>A funnel, not a feed</li>
+          </ul></div>
+        </div>
+      </article>
+
+      <article class="door" aria-expanded="false">
+        <div class="door-core">
+          <h3 style="margin:0"><button class="door-btn" aria-controls="d3"><span>Attracting Talent</span><span class="knob-o" aria-hidden="true"><i></i></span></button></h3>
+          <div class="door-panel"><ul id="d3">
+            <li>The talent is already in the industry</li>
+            <li>Show the culture, not the job post</li>
+            <li>A day on your site, as it really goes</li>
+            <li>Two organic hires a year pays for the year</li>
+            <li>Recruiting happens where the talent actually is</li>
+          </ul></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="proof" id="blog">
+  <div class="wrap">
+    <div class="slab rise">
+      <div class="slab-core">
+        <div>
+          <h2>Platinum Construction had no sales function.</h2>
+          <p>Pure word of mouth and referrals. In roughly three months we produced twelve meaningful conversations with national brands &mdash; <span class="named">McDonald&rsquo;s, Tim Hortons, Subway and A&amp;W</span> &mdash; and placement on a vendor list they had never been on.</p>
+          <p>Twelve conversations is activity. A procurement gate that stays open after the campaign ends is a change to what they are eligible to bid on.</p>
+          <div class="honest">
+            <p>Nothing has closed yet. We don&rsquo;t promise closes in ninety days. We promise you&rsquo;re in the room.</p>
+          </div>
+          <p class="cycle">Construction cycles run 6 to 18 months, and every buyer in this industry already knows it.</p>
+        </div>
+        <figure class="plate" style="margin:0">
+          <img src="assets/still-site.jpg" alt="An S5L shoot on an active construction site">
+          <figcaption>We shoot where the work happens, with the people who do it.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reel-wrap" id="video">
+  <div class="wrap">
+    <div class="reel-head">
+      <h2 class="rise">The videos, by what they do.</h2>
+      <p class="rise">Not a reel. Formats built for one industry, each answering a question a buyer or a candidate is already asking.</p>
+    </div>
+    <div class="bento" id="bento">
+      <figure class="tile" style="margin:0">
+        <img src="assets/still-documentary.jpg" alt="Documentary interview filmed outdoors">
+        <figcaption><h3>Documentary</h3><p>How your team thinks when a job goes sideways. The part no scoresheet measures.</p></figcaption>
+      </figure>
+      <figure class="tile" style="margin:0">
+        <img src="assets/still-bts.jpg" alt="Podcast recording setup with boom microphone">
+        <figcaption><h3>The podcast</h3><p>Our intelligence system. We ask owners what they weigh, then build against the answer.</p></figcaption>
+      </figure>
+      <figure class="tile" style="margin:0">
+        <img src="assets/still-commercial.jpg" alt="Development site with lot design overlay">
+        <figcaption><h3>Development</h3><p>What the site becomes, before it exists.</p></figcaption>
+      </figure>
+      <figure class="tile" style="margin:0">
+        <img src="assets/still-team.jpg" alt="An S5L interview filmed inside a client's office">
+        <figcaption><h3>Team depth</h3><p>One bench, two buyers: the owner asking who runs the job, the 22-year-old asking who to work for.</p></figcaption>
+      </figure>
+    </div>
+    <p class="also rise">Also in the engine: behind the scenes, factory, commercials, testimonials, and answer-the-public.</p>
+  </div>
+</section>
+
+<section class="close" id="contact">
+  <div class="wrap">
+    <div>
+      <h2 class="rise">Tell us the next project you want in the room.</h2>
+      <p class="rise">No deck and no pitch. A conversation about what your next project could look like on film, and who should see it.</p>
+    </div>
+    <a class="big-pill rise" href="tel:+16479578347">Book a call
+      <span class="knob" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot-mark">
+        <img src="assets/s5l-logo.png" alt="">
+        <p style="margin:0;max-width:25ch">Marketing and videography for the architecture, engineering and construction industry.</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <address>
+          <a href="tel:+16479578347">647-957-8347</a>
+          <a href="mailto:info@s5lproductions.com">info@s5lproductions.com</a>
+          <span style="display:block;padding-top:.45rem">54 Vanderbrink Drive<br>Brampton, ON L6R 0E8</span>
+        </address>
+      </div>
+      <div>
+        <h3>Hours</h3>
+        <p style="margin:0">Monday to Friday<br>8am &ndash; 9pm</p>
+      </div>
+      <div>
+        <h3>Elsewhere</h3>
+        <a href="https://www.linkedin.com/company/s5l-productions" rel="noopener">LinkedIn</a>
+        <a href="https://www.instagram.com/s5lproductions" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 S5L Productions. All rights reserved.</span>
+      <span>Brampton, Ontario</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- hero headline lands on load ---- */
+  requestAnimationFrame(function(){
+    setTimeout(function(){ document.getElementById('hero').classList.add('lit'); }, 120);
+  });
+
+  /* ---- island menu ---- */
+  var burger = document.getElementById('burger');
+  function menu(on){
+    document.body.setAttribute('data-menu', on ? 'open' : 'closed');
+    burger.setAttribute('aria-expanded', on ? 'true' : 'false');
+    burger.setAttribute('aria-label', on ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = on ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function(){
+    menu(document.body.getAttribute('data-menu') !== 'open');
+  });
+  document.getElementById('sheet').addEventListener('click', function(e){
+    if (e.target.tagName === 'A') menu(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && document.body.getAttribute('data-menu') === 'open'){ menu(false); burger.focus(); }
+  });
+
+  /* ---- three doors ---- */
+  var doors = [].slice.call(document.querySelectorAll('.door'));
+  function open(d, on){
+    d.setAttribute('aria-expanded', on ? 'true' : 'false');
+    d.querySelector('.door-btn').setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  doors.forEach(function(d){
+    var b = d.querySelector('.door-btn');
+    b.setAttribute('aria-expanded','false');
+    b.addEventListener('click', function(){
+      var was = d.getAttribute('aria-expanded') === 'true';
+      doors.forEach(function(x){ open(x, false); });
+      open(d, !was);
+    });
+  });
+
+  /* ---- scroll reveals: IntersectionObserver, never a scroll listener ---- */
+  var groups = [].slice.call(document.querySelectorAll('.rise, #deck, #bento'));
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add('lit');
+        io.unobserve(e.target);
+        if (e.target.id === 'deck') {
+          setTimeout(function(){ open(doors[1], true); }, 2000);
+        }
+      });
+    }, { threshold:.22, rootMargin:'0px 0px -8% 0px' });
+    groups.forEach(function(g){ io.observe(g); });
+  } else {
+    groups.forEach(function(g){ g.classList.add('lit'); });
+    open(doors[1], true);
+  }
+
+  /* ---- logo belt: duplicate the row so the loop has somewhere to go ---- */
+  var belt = document.getElementById('belt');
+  if (belt) {
+    belt.innerHTML += belt.innerHTML;
+    if (reduce) belt.style.animation = 'none';
+  }
+
+  /* ---- running timecode, the way a cut sheet is stamped ---- */
+  var tc = document.getElementById('tc'), t0 = Date.now();
+  function pad(n){ return (n<10?'0':'')+n; }
+  if (tc && !reduce) {
+    setInterval(function(){
+      var s = Math.floor((Date.now()-t0)/1000);
+      tc.textContent = pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60);
+    }, 1000);
+  }
+
+  /* ---- the brief asks for a still on mobile so the page stays light ---- */
+  var v = document.getElementById('heroVideo');
+  if (v && (reduce || matchMedia('(max-width: 820px)').matches)) {
+    v.removeAttribute('autoplay'); v.pause();
+  }
+})();
+</script>
+</body>
+</html>

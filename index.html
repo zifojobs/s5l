@@ -146,6 +146,12 @@ section{position:relative}
   margin-right:clamp(1.5rem,3.4vw,3.2rem)}
 /* explicit square box: a percentage height on a centred flex/grid child falls
    back to auto, which silently made every mark 1.9x too tall. */
+.marquee .lg.wide img{width:calc(var(--lgh) * 2.2);height:var(--lgh)}
+/* Platinum is the one mark that is not a flat white lockup: chrome, black outline,
+   black text inside a white pill. The white filter would destroy it, so the plate
+   changes instead of the logo. The file itself is never touched. */
+.marquee .lg.plated{background:rgba(234,238,244,.94);border-radius:4px;padding-inline:.65rem}
+.marquee .lg.plated img{filter:none;opacity:1}
 .marquee .lg img{width:var(--lgh);height:var(--lgh);object-fit:contain;flex:none;
   transform:scale(var(--z,1));
   opacity:.88;filter:brightness(0) invert(1);transition:opacity .35s}
@@ -388,6 +394,7 @@ verdict, DESIGN.md, and every shipping raster carrying its provenance.
     <div class="marquee">
       <div class="marquee-track" id="track">
         <span class="lg" style="--z:1.89;--wr:1.15"><img src="assets/Kenaidan.png" alt="Kenaidan"></span>
+        <span class="lg wide plated" style="--z:1.30;--wr:2.9"><img src="assets/platinum-logo.webp" alt="Platinum Construction Corporation"></span>
         <span class="lg" style="--z:2.56;--wr:2.70"><img src="assets/Seal_Canada_Logoq-1.png" alt="Seal Canada"></span>
         <span class="lg" style="--z:2.57;--wr:1.15"><img src="assets/Conform-Glass.png" alt="Conform Glass"></span>
         <span class="lg" style="--z:1.92;--wr:1.15"><img src="assets/SC.png" alt="S&amp;C Electric Canada"></span>
