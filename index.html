@@ -186,7 +186,7 @@ section{position:relative}
    rather than a rotated shape, so the oval never wobbles as the box changes ratio. */
 .stage{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
   align-content:space-between;row-gap:clamp(1.6rem,3.4vw,3rem);
-  min-height:clamp(360px,32vw,460px);
+  min-height:clamp(320px,27vw,400px);
   padding-block:clamp(1rem,2.4vw,2.1rem)}
 .mod[data-dir="left"] {grid-column:1/6;  grid-row:1}
 .mod[data-dir="right"]{grid-column:8/13; grid-row:1}
@@ -589,20 +589,13 @@ verdict, DESIGN.md, and every shipping raster carrying its provenance.
     });
   });
 
-  /* the frame that opens itself is the bottom, centred one: two compact bars above
-     and one open panel below keeps the ring's field balanced instead of loading
-     everything onto the left. */
-  var lead = stage.querySelector('.mod[data-dir="up"]') || mods[0];
-
   function land(){
     stage.classList.add('in');
-    /* the hover/land loop only starts once every frame has finished arriving,
-       otherwise the entrance and the loop pull the same box two ways. */
+    /* Nothing opens on its own: the visitor decides what to read. The hover/land
+       loop only starts once every frame has finished arriving, otherwise the
+       entrance and the loop pull the same box two ways. */
     if (!reduce) {
       setTimeout(function(){ stage.classList.add('floating'); }, 1400);
-      setTimeout(function(){ open(lead, true); }, 2000);
-    } else {
-      open(lead, true);
     }
   }
 

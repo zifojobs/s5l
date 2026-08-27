@@ -683,15 +683,11 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
         if (!e.isIntersecting) return;
         e.target.classList.add('lit');
         io.unobserve(e.target);
-        if (e.target.id === 'deck') {
-          setTimeout(function(){ open(doors[1], true); }, 2000);
-        }
       });
     }, { threshold:.22, rootMargin:'0px 0px -8% 0px' });
     groups.forEach(function(g){ io.observe(g); });
   } else {
     groups.forEach(function(g){ g.classList.add('lit'); });
-    open(doors[1], true);
   }
 
   /* ---- logo belt: duplicate the row so the loop has somewhere to go ---- */
