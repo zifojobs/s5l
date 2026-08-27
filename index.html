@@ -174,7 +174,10 @@ section{position:relative}
 .turn p b{font-weight:800;color:var(--blue-lit)}
 
 /* ---------- the ring ---------- */
-.engine{padding-block:clamp(4.5rem,11vh,8.5rem);background:var(--ink-2);border-top:1px solid var(--line)}
+.engine{padding-block:clamp(4.5rem,11vh,8.5rem);background:var(--ink-2);border-top:1px solid var(--line);
+  /* before the reveal fires, the left and right modules sit translated outward.
+     Without this, that pre-entrance offset widens the page at some viewports. */
+  overflow-x:clip;overflow-y:visible}
 .engine-head{display:grid;gap:1.2rem;margin-bottom:clamp(2.5rem,6vw,4.5rem)}
 .engine-head h2{max-width:13ch}
 .engine-head p{color:var(--paper-dim);margin:0}
