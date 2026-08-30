@@ -130,10 +130,12 @@ section{position:relative}
 .clients{border-block:1px solid var(--line);background:var(--ink-2);padding-block:clamp(3.5rem,6vw,5.5rem);overflow:hidden}
 /* the wall is the one band that runs wider than the 1240px column: it is a proof
    strip, and the empty gutters were reading as wasted space. */
-.clients .wrap{width:100%;padding-inline:clamp(1.25rem,2.5vw,3rem);display:grid;gap:clamp(1.75rem,3.2vw,2.75rem)}
-/* the label is a section title like any other, and stacking it hands the whole
-   viewport width to the marquee. */
-.clients h2{max-width:20ch}
+.clients .wrap{width:100%;padding-inline:0;display:grid;gap:clamp(1.75rem,3.2vw,2.75rem)}
+/* the title sits in the same 1240px column as every other section title, while
+   the strip below it stays full-bleed: the marquee is the one element that
+   should use the whole viewport. */
+.clients h2{width:min(1240px,100%);margin-inline:auto;padding-inline:var(--pad);
+  box-sizing:border-box;max-width:none}
 .marquee{flex:1;min-width:240px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
 /* the gap lives on the item, not the track: translateX(-50%) is only seamless
    when both halves measure exactly the same, gaps included. */

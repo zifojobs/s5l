@@ -172,12 +172,13 @@ body[data-menu="open"] .sheet a:nth-child(6){transition-delay:.38s}
 
 /* ---------- client wall ---------- */
 .wall{background:var(--ink);border-block:1px solid var(--hair-soft);padding-block:clamp(3.5rem,6.5vw,6rem);overflow:hidden}
-.wall .wrap{width:100%;padding-inline:clamp(1.25rem,2.5vw,3rem);display:grid;gap:clamp(1.5rem,3vw,2.4rem)}
+.wall .wrap{width:100%;padding-inline:0;display:grid;gap:clamp(1.5rem,3vw,2.4rem)}
 /* the label is a section marker everywhere else, but here it introduces the proof
    strip and has to carry: bigger, only inside the wall. */
-/* the label is a section title like any other, and stacking it hands the whole
-   viewport width to the belt. */
-.wall h2{max-width:20ch}
+/* the title sits in the same 1320px column as every other section title, while
+   the belt below it stays full-bleed. */
+.wall h2{width:min(1320px,100%);margin-inline:auto;padding-inline:var(--pad);
+  box-sizing:border-box;max-width:none}
 .belt{overflow:hidden;
   mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
