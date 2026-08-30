@@ -127,9 +127,11 @@ section{position:relative}
 .audience{margin-top:clamp(1.8rem,3.4vw,2.8rem);font-size:.82rem;color:var(--paper-dim);letter-spacing:.02em;max-width:50ch}
 
 /* ---------- clients ---------- */
-.clients{border-block:1px solid var(--line);background:var(--ink-2);padding-block:clamp(2rem,3.6vw,2.9rem);overflow:hidden}
-.clients .wrap{display:flex;align-items:center;gap:clamp(1.25rem,3.5vw,3rem);flex-wrap:wrap}
-.clients p{margin:0;font-size:.84rem;color:var(--paper-dim);max-width:15ch;flex:none;line-height:1.4}
+.clients{border-block:1px solid var(--line);background:var(--ink-2);padding-block:clamp(3.5rem,6vw,5.5rem);overflow:hidden}
+/* the wall is the one band that runs wider than the 1240px column: it is a proof
+   strip, and the empty gutters were reading as wasted space. */
+.clients .wrap{width:100%;padding-inline:clamp(1.25rem,2.5vw,3rem);display:flex;align-items:center;gap:clamp(1.5rem,3vw,3rem);flex-wrap:wrap}
+.clients p{margin:0;font-size:clamp(1rem,1.15vw,1.2rem);color:var(--paper-dim);max-width:16ch;flex:none;line-height:1.35}
 .marquee{flex:1;min-width:240px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
 /* the gap lives on the item, not the track: translateX(-50%) is only seamless
    when both halves measure exactly the same, gaps included. */
@@ -140,7 +142,7 @@ section{position:relative}
    out three different optical sizes. --z zooms each one to a common cap height and
    --wr gives it the width its own mark needs. The logo files stay untouched. */
 .marquee .lg{
-  --lgh:clamp(64px,7.5vw,88px);
+  --lgh:clamp(88px,11vw,132px);
   flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;
   height:var(--lgh);width:calc(var(--lgh) * var(--wr,1.15));
   margin-right:clamp(1.5rem,3.4vw,3.2rem)}
