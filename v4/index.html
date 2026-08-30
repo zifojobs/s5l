@@ -181,15 +181,18 @@ body[data-menu="open"] .sheet a:nth-child(6){transition-delay:.38s}
 .belt-track{display:flex;width:max-content;animation:belt 44s linear infinite}
 .belt:hover .belt-track{animation-play-state:paused}
 @keyframes belt{to{transform:translateX(-50%)}}
-.lg{--h:clamp(62px,7vw,85px);
+.lg{--h:clamp(64px,7.5vw,88px);
   flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;
   height:var(--h);width:calc(var(--h) * var(--wr,1.2));
   margin-right:clamp(2rem,4.6vw,4.4rem);opacity:.72;transition:opacity .6s var(--ease)}
 .lg:hover{opacity:1}
-/* every mark is already white on transparent, so nothing is recoloured here.
-   --z zooms each one to a common cap height, since the ink fills between
-   10% and 98% of its own square. The logo files are never modified. */
-.lg img{width:var(--h);height:var(--h);object-fit:contain;flex:none;transform:scale(var(--z,1))}
+/* every mark is forced to one white silhouette, the way direction A does it:
+   the supplied files range from white-on-transparent to full colour, and a wall
+   that mixes both reads as two styles. --z zooms each one to a common cap
+   height, since the ink fills between 10% and 98% of its own square.
+   The logo files themselves are never modified. */
+.lg img{width:var(--h);height:var(--h);object-fit:contain;flex:none;transform:scale(var(--z,1));
+  filter:brightness(0) invert(1)}
 .lg.wide img{width:calc(var(--h) * 2.2);height:var(--h)}
 /* Platinum is the one mark that is not a flat white lockup: it is chrome, with a
    black outline and black text inside a white pill. Forcing it white would destroy
