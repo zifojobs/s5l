@@ -130,8 +130,10 @@ section{position:relative}
 .clients{border-block:1px solid var(--line);background:var(--ink-2);padding-block:clamp(3.5rem,6vw,5.5rem);overflow:hidden}
 /* the wall is the one band that runs wider than the 1240px column: it is a proof
    strip, and the empty gutters were reading as wasted space. */
-.clients .wrap{width:100%;padding-inline:clamp(1.25rem,2.5vw,3rem);display:flex;align-items:center;gap:clamp(1.5rem,3vw,3rem);flex-wrap:wrap}
-.clients p{margin:0;font-size:clamp(1.3rem,1.8vw,1.9rem);color:var(--paper);max-width:14ch;flex:none;line-height:1.2;font-family:var(--display);font-weight:500}
+.clients .wrap{width:100%;padding-inline:clamp(1.25rem,2.5vw,3rem);display:grid;gap:clamp(1.75rem,3.2vw,2.75rem)}
+/* the label is a section title like any other, and stacking it hands the whole
+   viewport width to the marquee. */
+.clients h2{max-width:20ch}
 .marquee{flex:1;min-width:240px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
 /* the gap lives on the item, not the track: translateX(-50%) is only seamless
    when both halves measure exactly the same, gaps included. */
@@ -393,9 +395,9 @@ verdict, DESIGN.md, and every shipping raster carrying its provenance.
   </div>
 </section>
 
-<section class="clients" aria-label="Clients we have worked with">
+<section class="clients">
   <div class="wrap">
-    <p>Who we&rsquo;ve worked with</p>
+    <h2>Who we&rsquo;ve worked with</h2>
     <div class="marquee">
       <div class="marquee-track" id="track">
         <span class="lg" style="--z:1.89;--wr:1.15"><img src="assets/Kenaidan.png" alt="Kenaidan"></span>
