@@ -307,6 +307,8 @@ h2{font-size:clamp(2.1rem,5.4vw,4.4rem)}
 .vgrid.lit .vcard:nth-child(5){transition-delay:.28s}
 .vgrid.lit .vcard:nth-child(6){transition-delay:.35s}
 .also{margin-top:clamp(1.7rem,3vw,2.4rem);font-size:.86rem;color:var(--dim)}
+.voir-tout{color:var(--blue-lit);text-decoration:underline;text-underline-offset:3px}
+.voir-tout:hover{color:var(--paper)}
 
 /* ---------- close ---------- */
 .close{padding-block:clamp(5rem,13vh,9rem);overflow:hidden}
