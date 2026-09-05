@@ -293,8 +293,8 @@ h2{font-size:clamp(2.1rem,5.4vw,4.4rem)}
 
 /* ---------- video portfolio ---------- */
 .reel-wrap{padding-block:clamp(4.5rem,11vh,8.5rem);background:var(--ink);border-block:1px solid var(--hair-soft)}
-.reel-head{max-width:44ch;margin-bottom:clamp(2.4rem,5.5vw,3.8rem)}
-.reel-head p{color:var(--dim);margin-top:1.3rem}
+.reel-head{margin-bottom:clamp(2.4rem,5.5vw,3.8rem)}
+.reel-head p{color:var(--dim);margin-top:1.3rem;max-width:44ch}
 /* grille du portfolio video : meme composant .vcard que les temoignages */
 .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));
   gap:clamp(1rem,2vw,1.6rem)}
@@ -383,6 +383,29 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
   background:rgba(255,255,255,.10);border:1px solid var(--hair);color:var(--paper)}
 .lbox-close:hover{background:rgba(255,255,255,.20)}
 .lbox-close svg{width:17px;height:17px}
+/* ---------- titres sur UNE ligne ----------
+   Demande de Shabeeb via Saibo (05/09) : plus de titre sur deux lignes.
+   La taille ne se devine pas : --k est la largeur du titre en "em", MESUREE dans le
+   navigateur police chargee (largeur a 100px / 100). La taille se deduit alors de la
+   largeur reelle de la colonne : min(taille max, largeur / k).
+   Pas de white-space:nowrap : si k etait legerement faux, on veut un retour a la ligne
+   moche, jamais un debordement horizontal. */
+/* Le parent direct d'un titre ajuste devient le conteneur de mesure : 100cqi vaut alors
+   exactement sa largeur reelle, quelle que soit la mise en page et la largeur d'ecran.
+   Aucune largeur en dur, donc rien a corriger si le gabarit change. */
+:where(*:has(> .fit)){container-type:inline-size}
+/* .fit.fit vaut (0,2,0) : il faut battre .phero h1, .split h2 et .cta-band h2, qui
+   valent (0,1,1). Doubler la classe suffit -- pas besoin de !important. */
+/* --fit-pad : certains titres portent leur propre padding-inline, leur zone de texte
+   est donc plus etroite que le conteneur mesure. On le retranche. */
+.fit.fit{max-width:none;
+  font-size:min(var(--fs-max,4.4rem),calc((100cqi - 2 * var(--fit-pad,0px))/var(--k,14)))}
+.wall h2.fit{--fit-pad:var(--pad)}
+/* les deux titres pris dans une colonne etroite passent pleine largeur : sans ca il
+   faudrait descendre a 40-47% de leur taille, ce qui n'est plus le meme design */
+.split .wrap > h2.fit{grid-column:1/-1;margin-bottom:clamp(1.6rem,3vw,2.4rem)}
+.slab-core > h2.fit{grid-column:1/-1}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;

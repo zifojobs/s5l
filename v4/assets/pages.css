@@ -9,7 +9,7 @@
   border-bottom:1px solid var(--hair-soft)}
 .phero-fil{margin:0 0 1.4rem;font-family:var(--display);font-weight:700;font-size:.78rem;
   letter-spacing:.2em;text-transform:uppercase;color:var(--blue-lit)}
-.phero h1{font-size:clamp(2.05rem,5.4vw,4.1rem);max-width:20ch}
+.phero h1{font-size:clamp(2.05rem,5.4vw,4.1rem);max-width:20ch;--fs-max:4.1rem}
 .phero-intro{margin:1.6rem 0 0;color:var(--dim);max-width:62ch;font-size:clamp(1rem,1.25vw,1.16rem);line-height:1.62}
 .phero-shot{margin-top:clamp(2.4rem,5vw,3.6rem);border-radius:1.5rem;overflow:hidden;
   border:1px solid var(--hair-soft);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
@@ -78,4 +78,4 @@
 .cta-band{padding-block:clamp(4rem,10vh,7rem);background:var(--void);border-top:1px solid var(--hair-soft)}
 .cta-band .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
   gap:clamp(1.6rem,4vw,3rem)}
-.cta-band h2{font-size:clamp(1.6rem,3.6vw,3rem);max-width:18ch;margin:0}
+.cta-band h2{font-size:clamp(1.6rem,3.6vw,3rem);max-width:18ch;margin:0;--fs-max:3rem}
