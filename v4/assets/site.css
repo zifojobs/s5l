@@ -370,6 +370,9 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
 .vcard h3{font-size:clamp(1.02rem,1.25vw,1.2rem);letter-spacing:-.03em;line-height:1.25}
 .vcard p{margin:.5rem 0 0;color:var(--dim);font-size:.92rem}
 .tstm-more{margin-top:clamp(2rem,4vw,3rem);color:var(--dim);font-size:.92rem}
+/* [hidden] pose display:none avec une specificite de 0 : .lbox{display:grid} le battait,
+   donc la visionneuse couvrait tout l'ecran en permanence et avalait TOUS les clics. */
+.lbox[hidden]{display:none}
 .lbox{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:clamp(1rem,4vw,3rem);
   background:rgba(5,5,5,.92);opacity:0;transition:opacity .35s var(--ease)}
 .lbox[data-open="true"]{opacity:1}
