@@ -1,0 +1,81 @@
+/* ============================================================
+   pages.css — pages internes (services, detail, about)
+   S'ajoute a site.css : memes jetons, aucune redefinition.
+   ============================================================ */
+
+/* ---------- en-tete de page ---------- */
+.phero{padding-block:clamp(7rem,15vh,10.5rem) clamp(3rem,7vh,5rem);
+  background:radial-gradient(120% 90% at 12% 0%,rgba(46,82,150,.20),transparent 60%),var(--void);
+  border-bottom:1px solid var(--hair-soft)}
+.phero-fil{margin:0 0 1.4rem;font-family:var(--display);font-weight:700;font-size:.78rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--blue-lit)}
+.phero h1{font-size:clamp(2.05rem,5.4vw,4.1rem);max-width:20ch}
+.phero-intro{margin:1.6rem 0 0;color:var(--dim);max-width:62ch;font-size:clamp(1rem,1.25vw,1.16rem);line-height:1.62}
+.phero-shot{margin-top:clamp(2.4rem,5vw,3.6rem);border-radius:1.5rem;overflow:hidden;
+  border:1px solid var(--hair-soft);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.phero-shot img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+
+/* ---------- blocs de contenu ---------- */
+.listing{padding-block:clamp(4rem,10vh,7.5rem);background:var(--ink);border-top:1px solid var(--hair-soft)}
+.listing.alt{background:var(--ink-2)}
+
+/* ---------- listes numerotees ---------- */
+.numlist{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.numlist li{display:grid;grid-template-columns:auto 1fr;gap:clamp(1.1rem,2.6vw,2.4rem);
+  padding-block:clamp(1.5rem,2.6vw,2.1rem);border-top:1px solid var(--hair-soft)}
+.numlist li:last-child{border-bottom:1px solid var(--hair-soft)}
+.numlist-n{font-family:var(--display);font-weight:800;letter-spacing:-.04em;color:var(--blue-lit);
+  font-size:clamp(1.1rem,2vw,1.6rem);line-height:1.1;min-width:2.4ch}
+.numlist h3{font-size:clamp(1.08rem,1.5vw,1.4rem);letter-spacing:-.032em;line-height:1.22;margin:0}
+.numlist p{margin:.62rem 0 0;color:var(--dim);font-size:.96rem;line-height:1.62;max-width:74ch}
+.numlist a{color:var(--blue-lit);text-underline-offset:3px}
+
+/* ---------- ligne cle ---------- */
+.keyline{margin:clamp(2.4rem,5vw,3.4rem) 0 0;font-family:var(--display);font-weight:700;
+  letter-spacing:-.035em;line-height:1.28;font-size:clamp(1.2rem,2.3vw,1.85rem);max-width:34ch;color:var(--paper)}
+
+/* ---------- pastilles de secteurs ---------- */
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.6rem}
+.chips li{padding:.62rem 1.05rem;border-radius:999px;border:1px solid var(--hair-soft);
+  background:var(--glass-2);color:var(--paper);font-size:.9rem}
+
+/* ---------- prose ---------- */
+.prose p{color:var(--dim);font-size:clamp(1rem,1.2vw,1.1rem);line-height:1.72;max-width:68ch;margin:0 0 1.15rem}
+.prose p:last-child{margin-bottom:0}
+.prose-wide p{max-width:72ch}
+.prose .prose-last{color:var(--paper);font-family:var(--display);font-weight:700;letter-spacing:-.035em;
+  font-size:clamp(1.15rem,2.1vw,1.7rem);line-height:1.3;margin-top:2rem;max-width:28ch}
+
+/* ---------- comparatif ---------- */
+.cmp{display:grid;gap:.7rem}
+.cmp-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.cmp-cell{border-radius:1.1rem;padding:clamp(1.05rem,1.9vw,1.5rem);border:1px solid var(--hair-soft)}
+.cmp-them{background:var(--glass-2)}
+.cmp-us{background:linear-gradient(168deg,rgba(46,82,150,.20),rgba(46,82,150,.06));
+  border-color:rgba(110,155,238,.30)}
+.cmp-lab{display:block;font-family:var(--display);font-weight:700;font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:.6rem;color:var(--dim)}
+.cmp-us .cmp-lab{color:var(--blue-lit)}
+.cmp-cell p{margin:0;font-size:.95rem;line-height:1.58;color:var(--dim)}
+.cmp-us p{color:var(--paper)}
+/* en colonnes, le libelle ne sert qu'une fois : la 1re ligne fait en-tete */
+@media(min-width:761px){.cmp-row:not(:first-child) .cmp-lab{display:none}
+  .cmp-row:not(:first-child) .cmp-cell{padding-block:clamp(1.15rem,2vw,1.6rem)}}
+/* le brief : "Stack cards and comparisons vertically instead of shrinking desktop columns" */
+@media(max-width:760px){
+  .cmp-row{grid-template-columns:1fr}
+  .cmp-row+.cmp-row{margin-top:1.1rem}
+}
+
+/* ---------- encart ---------- */
+.note{border-radius:1.5rem;border:1px solid rgba(110,155,238,.30);
+  background:linear-gradient(168deg,rgba(46,82,150,.18),rgba(46,82,150,.04));
+  padding:clamp(1.6rem,3.4vw,2.8rem);max-width:78ch}
+.note h2{font-size:clamp(1.3rem,2.4vw,2rem);margin:0 0 1rem}
+.note p{margin:0;color:var(--dim);font-size:clamp(.98rem,1.2vw,1.08rem);line-height:1.66}
+
+/* ---------- bande d'appel ---------- */
+.cta-band{padding-block:clamp(4rem,10vh,7rem);background:var(--void);border-top:1px solid var(--hair-soft)}
+.cta-band .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:clamp(1.6rem,4vw,3rem)}
+.cta-band h2{font-size:clamp(1.6rem,3.6vw,3rem);max-width:18ch;margin:0}
