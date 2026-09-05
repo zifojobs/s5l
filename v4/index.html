@@ -233,56 +233,45 @@ h2{font-size:clamp(2.1rem,5.4vw,4.4rem)}
   font-size:clamp(1.15rem,1.9vw,1.68rem);max-width:30ch;color:var(--paper)}
 .turn p b{font-weight:800;color:var(--blue-lit)}
 
-/* ---------- three doors: double-bezel cards ---------- */
+/* ---------- three service cards: double-bezel ---------- */
 .doors{padding-block:clamp(4.5rem,11vh,8.5rem);background:var(--ink);border-top:1px solid var(--hair-soft)}
-.doors-head{display:grid;gap:1.1rem;margin-bottom:clamp(2.4rem,5.5vw,4rem);max-width:52ch}
-.doors-head h2{max-width:15ch}
-.doors-head p{color:var(--dim);margin:0}
-.doors-head .sub{color:var(--paper);font-family:var(--display);font-weight:700;letter-spacing:-.03em;font-size:clamp(1.15rem,2.1vw,1.6rem)}
-.deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(.9rem,1.7vw,1.5rem);align-items:start}
+.doors-head{display:grid;gap:1.1rem;margin-bottom:clamp(2.4rem,5.5vw,4rem);justify-items:start}
+/* il le veut sur UNE ligne : la colonne s'ouvre, et la taille descend assez bas
+   pour que la ligne tienne jusqu'a 360px (mesure : 13,74em de large) */
+.doors-head h2{max-width:none;font-size:clamp(1.3rem,5.2vw,4.4rem)}
+.doors-head p{color:var(--dim);margin:0;max-width:52ch}
+.doors-head .sub{color:var(--paper);font-family:var(--display);font-weight:700;letter-spacing:-.03em;font-size:clamp(.92rem,2.1vw,1.6rem)}
+.deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(.9rem,1.7vw,1.5rem);align-items:stretch}
 @media(max-width:960px){.deck{grid-template-columns:1fr}}
-/* outer shell */
-.door{border-radius:1.9rem;padding:.4rem;background:var(--glass-2);border:1px solid var(--hair-soft);
+/* three service cards */
+.card{border-radius:1.9rem;padding:.4rem;background:var(--glass-2);border:1px solid var(--hair-soft);
   opacity:0;transform:translateY(52px);filter:blur(8px);
   transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),filter .9s var(--ease-out)}
-.deck.lit .door{opacity:1;transform:none;filter:none}
-.deck.lit .door:nth-child(2){transition-delay:.10s}
-.deck.lit .door:nth-child(3){transition-delay:.20s}
-/* inner core, concentric radius */
-.door-core{border-radius:calc(1.9rem - .4rem);background:linear-gradient(168deg,rgba(255,255,255,.055),rgba(255,255,255,.014));
-  border:1px solid var(--hair-soft);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.13);
+.deck.lit .card{opacity:1;transform:none;filter:none}
+.deck.lit .card:nth-child(2){transition-delay:.10s}
+.deck.lit .card:nth-child(3){transition-delay:.20s}
+.card-core{display:flex;flex-direction:column;gap:.95rem;height:100%;text-decoration:none;color:inherit;
+  border-radius:calc(1.9rem - .4rem);background:linear-gradient(168deg,rgba(255,255,255,.055),rgba(255,255,255,.014));
+  border:1px solid var(--hair-soft);box-shadow:inset 0 1px 0 rgba(255,255,255,.13);
   padding:clamp(1.25rem,2.1vw,1.75rem);
   transition:background-color .7s var(--ease),border-color .7s var(--ease)}
-.door[aria-expanded="true"] .door-core{border-color:rgba(110,155,238,.42)}
-.door:hover .door-core{border-color:rgba(255,255,255,.18)}
-.door-btn{display:flex;align-items:flex-start;gap:1rem;width:100%;background:none;border:0;padding:0;
-  cursor:pointer;text-align:left;color:var(--paper);font-family:var(--display);font-weight:700;
-  letter-spacing:-.032em;line-height:1.2;font-size:clamp(1.1rem,1.45vw,1.34rem)}
-.door-btn span:first-child{flex:1}
-.knob-o{width:30px;height:30px;border-radius:999px;flex:none;display:grid;place-items:center;
+.card:hover .card-core,.card-core:focus-visible{border-color:rgba(110,155,238,.42)}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.card-icon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;flex:none;
+  background:rgba(110,155,238,.12);border:1px solid rgba(110,155,238,.28);color:var(--blue-lit);
+  transition:transform .6s var(--ease),background-color .6s var(--ease)}
+.card:hover .card-icon{transform:scale(1.06);background:rgba(110,155,238,.2)}
+.card-icon svg{width:23px;height:23px}
+.card-n{font-family:var(--display);font-size:.8rem;font-weight:700;letter-spacing:.18em;color:var(--dim)}
+.card h3{font-size:clamp(1.1rem,1.45vw,1.34rem);letter-spacing:-.032em;line-height:1.2}
+.card p{margin:0;color:var(--dim);font-size:.94rem;line-height:1.62}
+.card-more{display:inline-flex;align-items:center;gap:.6rem;margin-top:auto;padding-top:.4rem;
+  font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:-.02em;color:var(--paper)}
+.card-more .knob{width:26px;height:26px;border-radius:999px;display:grid;place-items:center;flex:none;
   background:rgba(255,255,255,.06);border:1px solid var(--hair-soft);
   transition:transform .6s var(--ease),background-color .6s var(--ease)}
-.door:hover .knob-o{background:rgba(255,255,255,.12);transform:scale(1.06)}
-.knob-o i{position:relative;width:11px;height:11px;display:block}
-.knob-o i::before,.knob-o i::after{content:"";position:absolute;background:var(--blue-lit);border-radius:2px;
-  transition:transform .55s var(--ease),opacity .35s var(--ease)}
-.knob-o i::before{inset:45% 0 auto;height:1.4px}
-.knob-o i::after{inset:0 45% auto;width:1.4px;height:100%}
-.door[aria-expanded="true"] .knob-o i::after{transform:rotate(90deg);opacity:0}
-.door-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .65s var(--ease)}
-.door[aria-expanded="true"] .door-panel{grid-template-rows:1fr}
-.door-panel ul{overflow:hidden;min-height:0;margin:0;padding:0;list-style:none}
-.door-panel li{font-size:.9rem;color:var(--dim);padding-block:.46rem;border-top:1px solid var(--hair-soft);
-  opacity:0;transform:translateY(-8px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.door-panel li:first-child{margin-top:1.15rem}
-.door[aria-expanded="true"] li{opacity:1;transform:none}
-.door[aria-expanded="true"] li:nth-child(1){transition-delay:.09s}
-.door[aria-expanded="true"] li:nth-child(2){transition-delay:.15s}
-.door[aria-expanded="true"] li:nth-child(3){transition-delay:.21s}
-.door[aria-expanded="true"] li:nth-child(4){transition-delay:.27s}
-.door[aria-expanded="true"] li:nth-child(5){transition-delay:.33s}
-.door[aria-expanded="true"] li:nth-child(6){transition-delay:.39s}
+.card:hover .card-more .knob{background:rgba(255,255,255,.14);transform:translateX(3px)}
+.card-more .knob svg{width:12px;height:12px}
 
 /* ---------- proof ---------- */
 .proof{padding-block:clamp(4.5rem,11vh,8.5rem);overflow:hidden}
@@ -385,7 +374,7 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important}
-  .rise,.door,.tile,.stack span i{opacity:1!important;transform:none!important;filter:none!important}
+  .rise,.card,.tile,.stack span i{opacity:1!important;transform:none!important;filter:none!important}
 }
 </style>
 </head>
@@ -485,44 +474,38 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
     </div>
 
     <div class="deck" id="deck">
-      <article class="door" aria-expanded="false">
-        <div class="door-core">
-          <h3 style="margin:0"><button class="door-btn" aria-controls="d1"><span>Branding &amp; Marketing</span><span class="knob-o" aria-hidden="true"><i></i></span></button></h3>
-          <div class="door-panel"><ul id="d1">
-            <li>Graphics that win on LinkedIn</li>
-            <li>Stop the before-and-after</li>
-            <li>Documentary series</li>
-            <li>Customer testimonials</li>
-            <li>Why choose your company</li>
-            <li>Winning before the RFQ</li>
-          </ul></div>
-        </div>
+      <article class="card">
+        <a class="card-core" href="/services/branding-marketing-videos/">
+          <span class="card-top">
+            <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="12.5" height="10" rx="2.6"/><path d="M15 10.9l5.1-2.6a.6.6 0 0 1 .9.54v6.34a.6.6 0 0 1-.9.54L15 13.1z"/><circle cx="6.3" cy="12" r="1.05"/></svg></span>
+            <span class="card-n">01</span>
+          </span>
+          <h3>Branding &amp; Marketing Videos</h3>
+          <p>We create customer-focused videos that address pain points, answer questions, and show why your company is different.</p>
+          <span class="card-more">See More <span class="knob" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></span>
+        </a>
       </article>
-
-      <article class="door" aria-expanded="false">
-        <div class="door-core">
-          <h3 style="margin:0"><button class="door-btn" aria-controls="d2"><span>Lead Generation</span><span class="knob-o" aria-hidden="true"><i></i></span></button></h3>
-          <div class="door-panel"><ul id="d2">
-            <li>Decision makers are on LinkedIn. Be in front of them.</li>
-            <li>Reach your core clients directly</li>
-            <li>Stop the post and ghost</li>
-            <li>DMs and engagement that open doors</li>
-            <li>A funnel, not a feed</li>
-          </ul></div>
-        </div>
+      <article class="card">
+        <a class="card-core" href="/services/lead-generation/">
+          <span class="card-top">
+            <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4.2"/><path d="M7.5 10.6v6"/><circle cx="7.5" cy="7.7" r="1"/><path d="M11.6 16.6v-6"/><path d="M11.6 13.3c0-1.7 1-2.8 2.6-2.8s2.6 1.1 2.6 2.8v3.3"/></svg></span>
+            <span class="card-n">02</span>
+          </span>
+          <h3>Lead Generation</h3>
+          <p>We help commercial contractors generate qualified inquiries through email, LinkedIn messages, and incoming phone calls.</p>
+          <span class="card-more">See More <span class="knob" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></span>
+        </a>
       </article>
-
-      <article class="door" aria-expanded="false">
-        <div class="door-core">
-          <h3 style="margin:0"><button class="door-btn" aria-controls="d3"><span>Attracting Talent</span><span class="knob-o" aria-hidden="true"><i></i></span></button></h3>
-          <div class="door-panel"><ul id="d3">
-            <li>The talent is already in the industry</li>
-            <li>Show the culture, not the job post</li>
-            <li>A day on your site, as it really goes</li>
-            <li>Two organic hires a year pays for the year</li>
-            <li>Recruiting happens where the talent actually is</li>
-          </ul></div>
-        </div>
+      <article class="card">
+        <a class="card-core" href="/services/talent-acquisition-videos/">
+          <span class="card-top">
+            <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.4" cy="10.4" r="7"/><path d="M15.6 15.6L21 21"/><circle cx="10.4" cy="8.8" r="2"/><path d="M7.1 14.7a3.7 3.7 0 0 1 6.6 0"/></svg></span>
+            <span class="card-n">03</span>
+          </span>
+          <h3>Talent Acquisition</h3>
+          <p>Recruitment videos should be created for one clear purpose: showing the right candidates why they should choose your company.</p>
+          <span class="card-more">See More <span class="knob" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></span>
+        </a>
       </article>
     </div>
   </div>
@@ -673,21 +656,6 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
     if (e.key === 'Escape' && document.body.getAttribute('data-menu') === 'open'){ menu(false); burger.focus(); }
   });
 
-  /* ---- three doors ---- */
-  var doors = [].slice.call(document.querySelectorAll('.door'));
-  function open(d, on){
-    d.setAttribute('aria-expanded', on ? 'true' : 'false');
-    d.querySelector('.door-btn').setAttribute('aria-expanded', on ? 'true' : 'false');
-  }
-  doors.forEach(function(d){
-    var b = d.querySelector('.door-btn');
-    b.setAttribute('aria-expanded','false');
-    b.addEventListener('click', function(){
-      var was = d.getAttribute('aria-expanded') === 'true';
-      doors.forEach(function(x){ open(x, false); });
-      open(d, !was);
-    });
-  });
 
   /* ---- scroll reveals: IntersectionObserver, never a scroll listener ---- */
   var groups = [].slice.call(document.querySelectorAll('.rise, #deck, #bento'));
