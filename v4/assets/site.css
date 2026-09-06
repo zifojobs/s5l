@@ -123,6 +123,20 @@ body[data-menu="open"] .sheet a:nth-child(6){transition-delay:.38s}
   padding-block:clamp(8rem,18vh,12rem) clamp(1.4rem,3vh,2.2rem)}
 .hero-media{position:absolute;inset:0;z-index:0}
 .hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.72) contrast(1.06)}
+/* ---------- hero : le montage rejoue en images sur telephone ----------
+   Le brief interdit de jouer la video du hero sur telephone, pour garder la page
+   legere -- et le resultat etait un fond fige la ou arrive la moitie des visiteurs.
+   On rejoue donc le montage en cinq plans : 407 Ko contre 2,8 Mo.
+   Les images sont montees par site.js SEULEMENT sous 820 px : un display:none
+   n'empeche pas le telechargement, le grand ecran ne doit jamais les demander.
+   La premiere image est le poster deja charge -- elle reste dessous en permanence,
+   donc aucun trou noir entre deux plans ni au premier affichage. */
+.hero-slides{position:absolute;inset:0}
+.hero-slides img{position:absolute;inset:0;opacity:0;animation:heroSlide 20s linear infinite}
+.hero-slides .hero-base{opacity:1;animation:none}
+@keyframes heroSlide{
+  0%{opacity:0} 4%{opacity:1} 20%{opacity:1} 24%{opacity:0} 100%{opacity:0}
+}
 .hero-media::after{content:"";position:absolute;inset:0;
   background:
     radial-gradient(120% 82% at 78% 12%,var(--blue-glow),transparent 58%),

@@ -134,9 +134,33 @@
     }, 1000);
   }
 
-  /* ---- the brief asks for a still on mobile so the page stays light ---- */
+  /* ---- the brief asks for a still on mobile so the page stays light ----
+     Une image fixe, c'est un hero mort la ou arrive la moitie des visiteurs. On
+     remplace donc la video par le meme montage joue en cinq plans : 407 Ko au
+     lieu de 2,8 Mo. Les images sont creees ICI et pas dans le HTML, sinon le
+     grand ecran les telechargerait pour rien -- un display:none ne l'empeche pas. */
   var v = document.getElementById('heroVideo');
   if (v && (reduce || matchMedia('(max-width: 820px)').matches)) {
-    v.removeAttribute('autoplay'); v.pause();
+    v.removeAttribute('autoplay');
+    v.pause();
+    var media = v.parentNode;
+    var bande = document.createElement('div');
+    bande.className = 'hero-slides';
+    bande.setAttribute('aria-hidden', 'true');
+    /* Le premier plan est le poster deja charge : il reste dessous en permanence
+       et fait aussi le cinquieme temps du cycle. Les 4 autres passent au-dessus. */
+    var plans = ['hero-poster', 'hero-s1', 'hero-s2', 'hero-s3', 'hero-s4'];
+    if (reduce) plans = ['hero-poster'];   /* mouvement refuse : le plan fixe suffit */
+    plans.forEach(function(nom, i){
+      var im = document.createElement('img');
+      im.src = 'assets/' + nom + '.jpg';
+      im.alt = '';
+      im.decoding = 'async';
+      if (i === 0) { im.className = 'hero-base'; }
+      else { im.style.animationDelay = ((i - 1) * 4) + 's'; }
+      bande.appendChild(im);
+    });
+    media.insertBefore(bande, v);
+    v.remove();   /* sinon preload="metadata" continue de tirer sur la data */
   }
 })();
