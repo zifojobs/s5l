@@ -44,7 +44,31 @@
     [].slice.call(document.querySelectorAll('.vcard-btn')).forEach(function(b){
       b.addEventListener('click', function(){
         opener = b;
-        lvid.src = b.getAttribute('data-video');
+        /* Le portfolio est en 16/9, les echantillons de format sont verticaux.
+           On reporte le ratio du bouton sur la visionneuse AVANT de charger, sinon
+           la video vertical part dans la boite 16/9 par defaut. Pas de data-ratio
+           (cas des temoignages) = on retire l'attribut, donc retour au 16/9. */
+        var ratio = b.getAttribute('data-ratio');
+        if (ratio) { lvid.setAttribute('data-ratio', ratio); }
+        else { lvid.removeAttribute('data-ratio'); }
+        /* Deux rendus depuis le 06/09 : X.mp4 pour le grand ecran, X-m.mp4 pour le
+           telephone. Shabeeb signalait les deux defauts LE MEME JOUR -- image
+           bloquee et lenteur sur mobile -- et ils tirent en sens inverse : un
+           fichier unique ne peut pas repondre aux deux. Le choix se fait ici, au
+           clic, jamais au chargement de la page. */
+        var src = b.getAttribute('data-video');
+        var bureau = src;
+        var eco = !!(navigator.connection && navigator.connection.saveData);
+        if (eco || matchMedia('(max-width: 820px)').matches) {
+          src = src.replace(/\.mp4$/, '-m.mp4');
+        }
+        /* Filet : si le rendu mobile manque, on retombe sur le fichier bureau
+           plutot que de laisser une visionneuse vide. Une seule tentative. */
+        lvid.onerror = function(){
+          if (lvid.getAttribute('src') === bureau) return;
+          lvid.src = bureau; lvid.load(); lvid.play().catch(function(){});
+        };
+        lvid.src = src;
         lvid.load();   /* preload="none" : sans load(), un play() refuse ne charge rien du tout */
         lbox.hidden = false;
         document.body.style.overflow = 'hidden';
