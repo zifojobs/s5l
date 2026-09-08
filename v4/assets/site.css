@@ -61,9 +61,8 @@ section{position:relative}
   box-shadow:0 24px 60px -30px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.09);
   transition:transform .7s var(--ease),background-color .7s var(--ease)}
 .island .mark{display:flex;align-items:center;flex:none}
-/* the supplied PNG is a 750x750 square whose ink is a 705x236 band; cropped in CSS, file untouched */
-.island .mark img{width:clamp(122px,10.5vw,148px);height:auto;
-  aspect-ratio:705/236;object-fit:cover;object-position:50% 47.6%}
+/* 840x312 tire du master 2067 px du client : plus de rognage CSS, le fichier est deja au trait */
+.island .mark img{width:clamp(115px,9.9vw,140px);height:auto}
 .links{display:flex;align-items:center;gap:clamp(.85rem,1.7vw,1.65rem)}
 .links a{font-family:var(--display);font-weight:500;font-size:.83rem;letter-spacing:-.005em;
   color:var(--dim);transition:color .5s var(--ease)}
@@ -356,8 +355,7 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
 .foot a{display:block;padding-block:.24rem;transition:color .45s var(--ease)}
 .foot a:hover{color:var(--paper)}
 .foot address{font-style:normal}
-.foot-mark img{width:clamp(132px,13vw,158px);height:auto;aspect-ratio:705/236;
-  object-fit:cover;object-position:50% 47.6%;margin-bottom:1rem}
+.foot-mark img{width:clamp(124px,12.2vw,148px);height:auto;margin-bottom:1rem}
 .legal{padding-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
   font-size:.76rem;color:#7A8494}
 
@@ -386,6 +384,33 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
 .vcard h3{font-size:clamp(1.02rem,1.25vw,1.2rem);letter-spacing:-.03em;line-height:1.25}
 .vcard p{margin:.5rem 0 0;color:var(--dim);font-size:.92rem}
 .tstm-more{margin-top:clamp(2rem,4vw,3rem);color:var(--dim);font-size:.92rem}
+
+/* ---------- avis Google : la preuve chiffree, juste avant l'appel a l'action ----------
+   Fond --ink-2 : la section precedente (.tstm) est en --ink et la suivante (.close) en
+   --void ; sans ce demi-ton, la bande se collerait a l'une ou a l'autre.
+   Tout est en HTML statique et SVG inline -- aucun script tiers, aucune requete externe :
+   leur hebergement mutualise sert deja a moitie moins vite que Vercel (mesure), et la
+   page porte les films. */
+.grev{background:var(--ink-2);border-block:1px solid var(--hair-soft);
+  padding-block:clamp(4rem,9vh,7rem)}
+.grev h2{max-width:16ch}
+.grev-score{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(.7rem,1.6vw,1.15rem);
+  margin-bottom:clamp(2rem,4.5vw,3rem)}
+.grev-stars{display:inline-flex;gap:.18rem;line-height:0}
+.grev-stars svg{width:clamp(18px,2.1vw,24px);height:auto;fill:#F5B23E}
+.grev-src{display:inline-flex;align-items:center;gap:.55rem;color:var(--dim);font-size:.92rem}
+.grev-src svg{width:17px;height:17px;flex:0 0 auto}
+.grev-src a{color:var(--paper);text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.22);transition:border-color .5s var(--ease)}
+.grev-src a:hover,.grev-src a:focus-visible{border-color:rgba(110,155,238,.75)}
+.grev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
+  gap:clamp(1rem,2vw,1.6rem)}
+.grev-card{margin:0;display:flex;flex-direction:column;gap:1.1rem;background:var(--ink);
+  border:1px solid var(--hair-soft);border-radius:1.35rem;
+  padding:clamp(1.4rem,2.4vw,1.9rem)}
+.grev-card blockquote{margin:0;font-size:clamp(.95rem,.42vw + .87rem,1.04rem);line-height:1.62}
+/* margin-top:auto -- les noms s'alignent en bas quelle que soit la longueur de l'avis */
+.grev-card figcaption{margin-top:auto;color:var(--dim);font-size:.88rem;letter-spacing:-.01em}
 /* [hidden] pose display:none avec une specificite de 0 : .lbox{display:grid} le battait,
    donc la visionneuse couvrait tout l'ecran en permanence et avalait TOUS les clics. */
 .lbox[hidden]{display:none}
