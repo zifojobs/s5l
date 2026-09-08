@@ -62,7 +62,7 @@ section{position:relative}
   transition:transform .7s var(--ease),background-color .7s var(--ease)}
 .island .mark{display:flex;align-items:center;flex:none}
 /* 840x312 tire du master 2067 px du client : plus de rognage CSS, le fichier est deja au trait */
-.island .mark img{width:clamp(115px,9.9vw,140px);height:auto}
+.island .mark img{width:clamp(132px,11.8vw,168px);height:auto}
 .links{display:flex;align-items:center;gap:clamp(.85rem,1.7vw,1.65rem)}
 .links a{font-family:var(--display);font-weight:500;font-size:.83rem;letter-spacing:-.005em;
   color:var(--dim);transition:color .5s var(--ease)}
@@ -355,7 +355,7 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
 .foot a{display:block;padding-block:.24rem;transition:color .45s var(--ease)}
 .foot a:hover{color:var(--paper)}
 .foot address{font-style:normal}
-.foot-mark img{width:clamp(124px,12.2vw,148px);height:auto;margin-bottom:1rem}
+.foot-mark img{width:clamp(142px,14vw,178px);height:auto;margin-bottom:1rem}
 .legal{padding-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
   font-size:.76rem;color:#7A8494}
 
