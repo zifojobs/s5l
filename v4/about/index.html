@@ -48,8 +48,14 @@
     <p class="phero-fil rise">About</p>
     <h1 class="rise fit" style="--k:21.52">S5L started with a camera and not much else.</h1>
     <p class="phero-intro rise">Shabeeb wanted to shoot &mdash; that was the whole plan. Good footage, good clients, keep going.</p>
+    <!-- Il a envoye ce film le 08/09 : "About Us", puis "I changed it to everywhere".
+         Facade cliquable et non lecteur en ligne : Vimeo ne se charge qu'au clic,
+         comme partout ailleurs sur le site. -->
     <div class="phero-shot rise">
-      <img src="/assets/still-bts.jpg" width="900" height="506" alt="Behind the scenes on an S5L shoot, the crew setting up an interview">
+      <button class="vcard-btn" data-vimeo="1224781095" aria-label="Play the S5L promo film, 2:45">
+        <img src="/assets/a-promo.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Shabeeb on a fenced construction site, in a hard hat and hi-vis, speaking to camera in the S5L promo film">
+        <span class="vcard-play"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span></span>
+      </button>
     </div>
   </div>
 </section>
@@ -84,6 +90,12 @@
 </main>
 
 
+<div class="lbox" id="lbox" hidden>
+  <button class="lbox-close" id="lboxClose" aria-label="Close the video">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>
+  </button>
+  <div class="lbox-frame" id="lboxVid"></div>
+</div>
 <footer>
   <div class="wrap">
     <div class="foot">

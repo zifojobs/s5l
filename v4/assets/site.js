@@ -25,55 +25,51 @@
   });
 
 
-  /* ---- testimonial lightbox: nothing loads until the visitor asks ----
-     La visionneuse n'existe QUE sur l'accueil. Sans ce garde, ce bloc levait une
-     TypeError sur les 5 autres pages et tout ce qui suit -- dont le revelateur
-     d'animations -- ne s'executait jamais : les pages restaient a opacity 0. */
+  /* ---- video lightbox: nothing loads until the visitor asks ----
+     La visionneuse n'existe pas sur toutes les pages. Sans ce garde, ce bloc levait
+     une TypeError et tout ce qui suit -- dont le revelateur d'animations -- ne
+     s'executait jamais : les pages restaient a opacity 0.
+
+     Depuis le 08/09 les films sont chez Vimeo, plus dans le depot. Vimeo sert un
+     debit adaptatif de 240p a 2160p : c'est LUI qui choisit la qualite selon le
+     reseau du visiteur. Les deux rendus bureau/mobile bricoles le 06/09 -- et la
+     bascule -m.mp4 qui allait avec -- n'ont donc plus de raison d'etre.
+     L'iframe est CREEE au clic et DETRUITE a la fermeture : c'est ce qui arrete la
+     lecture et coupe le son. Un simple hidden laisserait le film tourner. */
   var lbox = document.getElementById('lbox');
-  var lvid = document.getElementById('lboxVid');
+  var lframe = document.getElementById('lboxVid');
   var lclosebtn = document.getElementById('lboxClose');
-  if (lbox && lvid && lclosebtn) {
+  if (lbox && lframe && lclosebtn) {
     var opener = null;
     var lclose = function(){
       lbox.removeAttribute('data-open');
       setTimeout(function(){ lbox.hidden = true; }, 320);
-      lvid.pause(); lvid.removeAttribute('src'); lvid.load();
+      lframe.innerHTML = '';
       document.body.style.overflow = '';
       if (opener) { opener.focus(); opener = null; }
     };
     [].slice.call(document.querySelectorAll('.vcard-btn')).forEach(function(b){
       b.addEventListener('click', function(){
+        var id = b.getAttribute('data-vimeo');
+        if (!id || !/^[0-9]+$/.test(id)) return;   /* rien d'autre qu'un identifiant ne part dans l'URL */
         opener = b;
-        /* Le portfolio est en 16/9, les echantillons de format sont verticaux.
-           On reporte le ratio du bouton sur la visionneuse AVANT de charger, sinon
-           la video vertical part dans la boite 16/9 par defaut. Pas de data-ratio
-           (cas des temoignages) = on retire l'attribut, donc retour au 16/9. */
+        /* Le portfolio est en 16/9, les echantillons de format sont verticaux, et le
+           temoignage Platinum est en 4/3. On reporte le ratio du bouton sur la boite
+           AVANT de creer l'iframe, sinon la video part dans le 16/9 par defaut. */
         var ratio = b.getAttribute('data-ratio');
-        if (ratio) { lvid.setAttribute('data-ratio', ratio); }
-        else { lvid.removeAttribute('data-ratio'); }
-        /* Deux rendus depuis le 06/09 : X.mp4 pour le grand ecran, X-m.mp4 pour le
-           telephone. Shabeeb signalait les deux defauts LE MEME JOUR -- image
-           bloquee et lenteur sur mobile -- et ils tirent en sens inverse : un
-           fichier unique ne peut pas repondre aux deux. Le choix se fait ici, au
-           clic, jamais au chargement de la page. */
-        var src = b.getAttribute('data-video');
-        var bureau = src;
-        var eco = !!(navigator.connection && navigator.connection.saveData);
-        if (eco || matchMedia('(max-width: 820px)').matches) {
-          src = src.replace(/\.mp4$/, '-m.mp4');
-        }
-        /* Filet : si le rendu mobile manque, on retombe sur le fichier bureau
-           plutot que de laisser une visionneuse vide. Une seule tentative. */
-        lvid.onerror = function(){
-          if (lvid.getAttribute('src') === bureau) return;
-          lvid.src = bureau; lvid.load(); lvid.play().catch(function(){});
-        };
-        lvid.src = src;
-        lvid.load();   /* preload="none" : sans load(), un play() refuse ne charge rien du tout */
+        if (ratio) { lframe.setAttribute('data-ratio', ratio); }
+        else { lframe.removeAttribute('data-ratio'); }
+        var f = document.createElement('iframe');
+        f.src = 'https://player.vimeo.com/video/' + id +
+                '?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1';
+        f.setAttribute('frameborder','0');
+        f.setAttribute('allow','autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
+        f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+        f.setAttribute('title', b.getAttribute('aria-label') || 'S5L film');
+        lframe.appendChild(f);
         lbox.hidden = false;
         document.body.style.overflow = 'hidden';
         requestAnimationFrame(function(){ lbox.setAttribute('data-open','true'); });
-        lvid.play().catch(function(){});
         lclosebtn.focus();
       });
     });
