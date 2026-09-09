@@ -158,9 +158,14 @@
     var plans = etroit ? ['hero-m1', 'hero-m2', 'hero-m3', 'hero-m4', 'hero-m5']
                        : ['hero-poster'];
     if (reduce) plans = plans.slice(0, 1);   /* mouvement refuse : un plan fixe suffit */
+    /* Le dossier des images se DEDUIT du poster de la video, jamais ecrit en dur :
+       sur Vercel il vaut `assets/`, dans WordPress `/wp-content/themes/.../media/`.
+       C'est le seul chemin que ce script fabrique, et un chemin relatif ecrit en dur
+       se resoudrait contre l'URL de la page -- donc en 404 sur /about/. */
+    var base = (v.getAttribute('poster') || 'assets/hero-poster.jpg').replace(/[^\/]+$/, '');
     plans.forEach(function(nom, i){
       var im = document.createElement('img');
-      im.src = 'assets/' + nom + '.jpg';
+      im.src = base + nom + '.jpg';
       im.alt = '';
       im.decoding = 'async';
       if (i === 0) { im.className = 'hero-base'; }
