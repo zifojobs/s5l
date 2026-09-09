@@ -132,21 +132,32 @@
 
   /* ---- the brief asks for a still on mobile so the page stays light ----
      Une image fixe, c'est un hero mort la ou arrive la moitie des visiteurs. On
-     remplace donc la video par le meme montage joue en cinq plans : 407 Ko au
+     remplace donc la video par le meme montage joue en cinq plans : 105 Ko au
      lieu de 2,8 Mo. Les images sont creees ICI et pas dans le HTML, sinon le
-     grand ecran les telechargerait pour rien -- un display:none ne l'empeche pas. */
+     grand ecran les telechargerait pour rien -- un display:none ne l'empeche pas.
+     Les cinq fichiers sont DEJA cadres en portrait par `hero-stills.py`, qui les
+     tire du montage lui-meme. Deux raisons, mesurees le 08/09 : le hero fait
+     100dvh, donc `object-fit:cover` d'une image 16/9 n'en gardait que 26 % de la
+     largeur -- 4 plans sur 5 ne montraient plus aucun visage ; et le montage
+     avait ete reordonne deux fois sans que ces images suivent. Regenerer depuis
+     le montage supprime les deux problemes d'un coup. NE PAS remettre
+     `hero-poster` ici : c'est le poster 16/9 de la video du grand ecran. */
   var v = document.getElementById('heroVideo');
-  if (v && (reduce || matchMedia('(max-width: 820px)').matches)) {
+  var etroit = matchMedia('(max-width: 820px)').matches;
+  if (v && (reduce || etroit)) {
     v.removeAttribute('autoplay');
     v.pause();
     var media = v.parentNode;
     var bande = document.createElement('div');
     bande.className = 'hero-slides';
     bande.setAttribute('aria-hidden', 'true');
-    /* Le premier plan est le poster deja charge : il reste dessous en permanence
-       et fait aussi le cinquieme temps du cycle. Les 4 autres passent au-dessus. */
-    var plans = ['hero-poster', 'hero-s1', 'hero-s2', 'hero-s3', 'hero-s4'];
-    if (reduce) plans = ['hero-poster'];   /* mouvement refuse : le plan fixe suffit */
+    /* Le premier plan reste dessous en permanence et fait aussi le cinquieme
+       temps du cycle. Les 4 autres passent au-dessus.
+       Sur GRAND ecran on n'arrive ici que par « mouvement reduit » : les plans
+       portrait y seraient etires, c'est le poster 16/9 qu'il faut. */
+    var plans = etroit ? ['hero-m1', 'hero-m2', 'hero-m3', 'hero-m4', 'hero-m5']
+                       : ['hero-poster'];
+    if (reduce) plans = plans.slice(0, 1);   /* mouvement refuse : un plan fixe suffit */
     plans.forEach(function(nom, i){
       var im = document.createElement('img');
       im.src = 'assets/' + nom + '.jpg';
