@@ -1,2 +1,7 @@
 # review artefacts, not part of the deliverable
 .impeccable/
+
+# 14/09 -- films repasses en fichiers locaux le temps que Vimeo revienne.
+# Hors depot : ~200 Mo, et le stockage Vercel etait deja plein le 07/09.
+# (hero-loop.mp4 est suivi : un .gitignore ne touche pas un fichier suivi.)
+v4/assets/*.mp4

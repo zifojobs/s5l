@@ -19,6 +19,15 @@
    l'autre, et le translateY du survol decalait l'image sous un overflow:hidden. */
 .phero-shot .vcard-btn{border:0;border-radius:0;background:none}
 .phero-shot .vcard-btn:hover,.phero-shot .vcard-btn:focus-visible{transform:none;border-color:transparent}
+/* Lead Generation : 4 films clients en 2x2 a la place de l'image unique (mail du 13/09).
+   Rien ne charge avant le clic : seules les 4 affiches pesent sur la page. Le nom du
+   client est pose sur chaque vignette, pour que la preuve se lise sans cliquer. */
+.phero-quad{margin-top:clamp(2.4rem,5vw,3.6rem);display:grid;grid-template-columns:1fr 1fr;gap:clamp(.55rem,1.4vw,1rem)}
+.phero-quad .vcard-play span{width:clamp(42px,4.6vw,62px);height:clamp(42px,4.6vw,62px)}
+.phero-quad .vcard-play svg{width:20px;height:20px;margin-left:2px}
+.quad-name{position:absolute;left:clamp(.6rem,1.4vw,1.1rem);bottom:clamp(.5rem,1.2vw,.95rem);
+  font-family:var(--display);font-weight:700;letter-spacing:-.01em;font-size:clamp(.72rem,1.15vw,1rem);
+  color:var(--paper);text-shadow:0 1px 10px rgba(0,0,0,.65)}
 
 /* ---------- blocs de contenu ---------- */
 .listing{padding-block:clamp(4rem,10vh,7.5rem);background:var(--ink);border-top:1px solid var(--hair-soft)}

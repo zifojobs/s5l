@@ -35,7 +35,12 @@
      reseau du visiteur. Les deux rendus bureau/mobile bricoles le 06/09 -- et la
      bascule -m.mp4 qui allait avec -- n'ont donc plus de raison d'etre.
      L'iframe est CREEE au clic et DETRUITE a la fermeture : c'est ce qui arrete la
-     lecture et coupe le son. Un simple hidden laisserait le film tourner. */
+     lecture et coupe le son. Un simple hidden laisserait le film tourner.
+
+     14/09 : Vimeo inaccessible pour les six films des mails du 13-14/09. Ils
+     reviennent en fichiers locaux (data-video), avec les deux rendus du 06/09 :
+     X.mp4 au bureau, X-m.mp4 au telephone. Quand leurs identifiants Vimeo
+     arriveront, data-video redevient data-vimeo et cette branche ne sert plus. */
   var lbox = document.getElementById('lbox');
   var lframe = document.getElementById('lboxVid');
   var lclosebtn = document.getElementById('lboxClose');
@@ -51,7 +56,8 @@
     [].slice.call(document.querySelectorAll('.vcard-btn')).forEach(function(b){
       b.addEventListener('click', function(){
         var id = b.getAttribute('data-vimeo');
-        if (!id || !/^[0-9]+$/.test(id)) return;   /* rien d'autre qu'un identifiant ne part dans l'URL */
+        var fichier = b.getAttribute('data-video');
+        if (!fichier && (!id || !/^[0-9]+$/.test(id))) return;   /* rien d'autre qu'un identifiant ne part dans l'URL */
         opener = b;
         /* Le portfolio est en 16/9, les echantillons de format sont verticaux, et le
            temoignage Platinum est en 4/3. On reporte le ratio du bouton sur la boite
@@ -59,14 +65,31 @@
         var ratio = b.getAttribute('data-ratio');
         if (ratio) { lframe.setAttribute('data-ratio', ratio); }
         else { lframe.removeAttribute('data-ratio'); }
-        var f = document.createElement('iframe');
-        f.src = 'https://player.vimeo.com/video/' + id +
-                '?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1';
-        f.setAttribute('frameborder','0');
-        f.setAttribute('allow','autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
-        f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
-        f.setAttribute('title', b.getAttribute('aria-label') || 'S5L film');
-        lframe.appendChild(f);
+        if (fichier) {
+          var v = document.createElement('video');
+          var eco = !!(navigator.connection && navigator.connection.saveData);
+          var src = (eco || matchMedia('(max-width: 820px)').matches)
+                    ? fichier.replace(/\.mp4$/, '-m.mp4') : fichier;
+          /* Filet : si le rendu mobile manque, on retombe sur le fichier bureau. */
+          v.onerror = function(){
+            if (v.getAttribute('src') === fichier) return;
+            v.src = fichier; v.play().catch(function(){});
+          };
+          v.controls = true; v.playsInline = true; v.autoplay = true;
+          v.setAttribute('title', b.getAttribute('aria-label') || 'S5L film');
+          v.src = src;
+          lframe.appendChild(v);
+          v.play().catch(function(){});
+        } else {
+          var f = document.createElement('iframe');
+          f.src = 'https://player.vimeo.com/video/' + id +
+                  '?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1';
+          f.setAttribute('frameborder','0');
+          f.setAttribute('allow','autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share');
+          f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+          f.setAttribute('title', b.getAttribute('aria-label') || 'S5L film');
+          lframe.appendChild(f);
+        }
         lbox.hidden = false;
         document.body.style.overflow = 'hidden';
         requestAnimationFrame(function(){ lbox.setAttribute('data-open','true'); });
