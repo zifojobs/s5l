@@ -358,14 +358,15 @@ footer{padding-block:clamp(2.8rem,6vw,4.2rem) 2rem;font-size:.87rem;color:var(--
 .foot-mark img{width:clamp(142px,14vw,178px);height:auto;margin-bottom:1rem}
 .legal{padding-top:1.5rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
   font-size:.76rem;color:#7A8494}
-/* 5 colonnes depuis Quick Links (15/09) : Contact plus large, sinon info@ deborde de 4 a 42 px
-   entre 1280 et 1000 px, et en auto-fit « Elsewhere » tombe seul sur une 2e ligne */
 @media (min-width:1100px){
+  /* 5 colonnes depuis Quick Links (15/09) : Contact plus large, sinon info@ deborde de 4 a 42 px
+     entre 1280 et 1000 px, et en auto-fit « Elsewhere » tombe seul sur une 2e ligne.
+     Commentaire DANS le bloc : devant un @media, il empeche _regles() de le reconnaitre. */
   .foot{grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr) minmax(0,1.35fr) minmax(0,.95fr) minmax(0,.85fr)}
 }
 /* « Recognized by » -- la section DesignRush de l'ancien pied, gardee a la demande de Saibo */
 .recog{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;
-  gap:.9rem clamp(1.5rem,4vw,3rem);padding-block:2rem;border-bottom:1px solid var(--hair-soft)}
+  gap:.9rem clamp(1.5rem,4vw,3rem);padding-block:0 2.2rem;margin-bottom:2.2rem;border-bottom:1px solid var(--hair-soft)}
 .recog h3{grid-column:1/-1;font-family:var(--display);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;
   color:#808A99;font-weight:500;line-height:1.2}
 .recog-badge{display:block;padding:.85rem 1.1rem;border:1px solid var(--hair);border-radius:14px;
