@@ -167,6 +167,20 @@
      `hero-poster` ici : c'est le poster 16/9 de la video du grand ecran. */
   var v = document.getElementById('heroVideo');
   var etroit = matchMedia('(max-width: 820px)').matches;
+  /* 29/09 : Shabeeb veut une VIDEO sur telephone (vocal du 28/09, il montre le site
+     a un evenement). `hero-mobile.mp4` est un montage PORTRAIT 720x1280 de ses
+     7 clips (dossier `Mobil Hro`), 2,1 Mo, muet : il ne se recadre donc pas.
+     Le diaporama ci-dessous reste pour « mouvement reduit » et « economie de data ». */
+  var eco = navigator.connection && navigator.connection.saveData;
+  if (v && etroit && !reduce && !eco) {
+    var base0 = (v.getAttribute('poster') || 'assets/hero-poster.jpg').replace(/[^\/]+$/, '');
+    v.setAttribute('poster', base0 + 'hero-mobile.jpg');
+    v.querySelector('source').setAttribute('src', base0 + 'hero-mobile.mp4');
+    v.load();
+    var p = v.play();
+    if (p && p.catch) p.catch(function(){});
+    v = null;   /* le diaporama ne s'applique pas */
+  }
   if (v && (reduce || etroit)) {
     v.removeAttribute('autoplay');
     v.pause();
